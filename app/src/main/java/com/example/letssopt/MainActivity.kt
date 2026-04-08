@@ -31,12 +31,16 @@ import com.example.letssopt.ui.theme.LETSSOPTTheme
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val email = intent.getStringExtra("email")
+        val pw = intent.getStringExtra("password")
         enableEdgeToEdge()
         setContent {
             LETSSOPTTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Greeting(
                         name = "Week1",
+                        email = email ?: "",
+                        pw = pw ?: "",
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
@@ -46,15 +50,17 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
+fun Greeting(name: String,email: String,pw: String, modifier: Modifier = Modifier) {
     val context = LocalContext.current
     val intent = Intent(context, SignUpActivity::class.java)
+    val intent2 = Intent(context, LoginActivity::class.java)
+
+
     Column(
         modifier = modifier
             .fillMaxSize()
             .padding(horizontal = 15.dp))
     {
-
         Text(
             text = "Watcha",
             modifier = modifier
@@ -104,16 +110,13 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
         }
         Button(
             onClick = {
-                val email = intent.getStringExtra("email")
-                val pw = intent.getStringExtra("password")
+
                 if (emailinput == email && pwinput == pw){
                     val intent3 = Intent(context, LoginActivity::class.java)
                     context.startActivity(intent3)
                 }
                 else {
-                    // putextra,getextra 확인용
-                    Toast.makeText(context, "email: $email emailinput: $emailinput", Toast.LENGTH_SHORT).show()
-                    Toast.makeText(context, "pw: $pw pwinput: $pwinput", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "로그인 실패", Toast.LENGTH_SHORT).show()
                 }
             },
             modifier = Modifier
@@ -133,6 +136,6 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 @Composable
 fun GreetingPreview() {
     LETSSOPTTheme {
-        Greeting("Android")
+        Greeting("Android","email","pw")
     }
 }

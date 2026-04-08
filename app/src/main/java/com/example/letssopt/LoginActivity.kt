@@ -35,12 +35,21 @@ import com.example.letssopt.ui.theme.LETSSOPTTheme
 
 
 class LoginActivity : ComponentActivity() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-
+        setContent {
+            LETSSOPTTheme {
+                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                    Login(
+                        name = "Android",
+                        modifier = Modifier.padding(innerPadding)
+                    )
+                }
+            }
+        }
     }
+
 }
 
 @Composable
