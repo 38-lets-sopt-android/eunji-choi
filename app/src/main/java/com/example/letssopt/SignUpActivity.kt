@@ -2,6 +2,8 @@ package com.example.letssopt
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Patterns
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -16,8 +18,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LongState
-import androidx.compose.runtime.Recomposer
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
@@ -32,6 +32,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import com.example.letssopt.ui.theme.LETSSOPTTheme
+import java.util.regex.Pattern
 
 
 class SignUpActivity : ComponentActivity() {
@@ -40,6 +41,7 @@ class SignUpActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
+
             LETSSOPTTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Signup(
@@ -48,13 +50,16 @@ class SignUpActivity : ComponentActivity() {
                 }
             }
         }
+
     }
 }
+private var pattern: Pattern = Patterns.EMAIL_ADDRESS
 
 @Composable
 fun Signup(modifier: Modifier = Modifier) {
     val context = LocalContext.current
-    val intent = Intent(context, MainActivity::class.java)
+    val intent = Intent(context, LoginActivity::class.java)
+
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -90,6 +95,7 @@ fun Signup(modifier: Modifier = Modifier) {
             modifier = modifier
         )
         var pw by remember {mutableStateOf("")}
+
         TextField(
             value = pw,
             onValueChange = { pw = it },
@@ -101,24 +107,38 @@ fun Signup(modifier: Modifier = Modifier) {
             text = "비밀번호 확인",
             modifier = modifier
         )
+        var pw2 by remember {mutableStateOf("")}
         TextField(
-            value = "",
-            onValueChange = { },
+            value = pw2,
+            onValueChange = { pw2 = it },
             modifier = Modifier
                 .fillMaxWidth(),
             label = { Text(text = "비밀번호를 다시 입력하세요") }
         )
+
         Button(
             onClick = {
-                intent.putExtra("email",email)
-                intent.putExtra("password",pw)
-                context.startActivity(intent)
+                if(pattern.matcher(email).matches() && pw.length >= 8 && pw.length <12
+                    && pw == pw2){
+                    intent.putExtra("email",email)
+                    intent.putExtra("password",pw)
+                    context.startActivity(intent)
+                    Toast.makeText(context, "회원가입에 성공했습니다", Toast.LENGTH_SHORT).show()
+                }
+                else{
+                    Toast.makeText(context, "회원가입에 실패했습니다", Toast.LENGTH_SHORT).show()
+                }
             },
+            enabled = if (email.isNotEmpty() && pw.isNotEmpty() && pw2.isNotEmpty()) true
+            else false,
+//
+
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(bottom = 16.dp),
             colors = ButtonDefaults.buttonColors(containerColor = Color.Red),
             shape = RoundedCornerShape(8.dp)
+
         ) {
             Text("회원가입", color = Color.White)
         }
