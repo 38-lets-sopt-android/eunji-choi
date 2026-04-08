@@ -21,7 +21,7 @@ class MainActivity : ComponentActivity() {
             LETSSOPTTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Greeting(
-                        name = "Android",
+                        name = "Week1",
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
