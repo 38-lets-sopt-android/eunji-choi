@@ -42,7 +42,6 @@ class LoginActivity : ComponentActivity() {
             LETSSOPTTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Login(
-                        name = "Android",
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
@@ -53,7 +52,7 @@ class LoginActivity : ComponentActivity() {
 }
 
 @Composable
-fun Login(name: String, modifier: Modifier = Modifier) {
+fun Login(modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -68,6 +67,6 @@ fun Login(name: String, modifier: Modifier = Modifier) {
 @Composable
 fun LoginPreview() {
     LETSSOPTTheme {
-        Login("Android")
+        Login()
     }
 }

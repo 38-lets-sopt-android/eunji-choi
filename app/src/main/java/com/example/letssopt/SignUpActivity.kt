@@ -43,7 +43,6 @@ class SignUpActivity : ComponentActivity() {
             LETSSOPTTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Signup(
-                        name = "Android",
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
@@ -53,7 +52,7 @@ class SignUpActivity : ComponentActivity() {
 }
 
 @Composable
-fun Signup(name: String, modifier: Modifier = Modifier) {
+fun Signup(modifier: Modifier = Modifier) {
     val context = LocalContext.current
     val intent = Intent(context, MainActivity::class.java)
     Column(
@@ -132,5 +131,5 @@ fun Signup(name: String, modifier: Modifier = Modifier) {
 @Composable
 fun SignupPreview() {
     LETSSOPTTheme {
-        Signup("Android")
+        Signup()
     }}

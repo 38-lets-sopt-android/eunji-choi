@@ -38,7 +38,6 @@ class MainActivity : ComponentActivity() {
             LETSSOPTTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Greeting(
-                        name = "Week1",
                         email = email ?: "",
                         pw = pw ?: "",
                         modifier = Modifier.padding(innerPadding)
@@ -50,11 +49,9 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting(name: String,email: String,pw: String, modifier: Modifier = Modifier) {
+fun Greeting(email: String,pw: String, modifier: Modifier = Modifier) {
     val context = LocalContext.current
     val intent = Intent(context, SignUpActivity::class.java)
-    val intent2 = Intent(context, LoginActivity::class.java)
-
 
     Column(
         modifier = modifier
@@ -136,6 +133,6 @@ fun Greeting(name: String,email: String,pw: String, modifier: Modifier = Modifie
 @Composable
 fun GreetingPreview() {
     LETSSOPTTheme {
-        Greeting("Android","email","pw")
+        Greeting("email","pw")
     }
 }
