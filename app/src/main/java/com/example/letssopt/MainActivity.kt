@@ -39,7 +39,7 @@ fun Main(modifier: Modifier = Modifier) {
         modifier = modifier
             .fillMaxSize()
             .padding(horizontal = 15.dp)
-    ){
+    ) {
         Text(text = "로그인 성공 !!")
     }
 }

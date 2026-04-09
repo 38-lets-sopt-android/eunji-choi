@@ -12,13 +12,11 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Scaffold
@@ -33,16 +31,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Color.Companion.Gray
-import androidx.compose.ui.graphics.Color.Companion.Red
-import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -59,8 +53,9 @@ class LoginActivity : ComponentActivity() { //로그인 화면 activity
             LETSSOPTTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Login(
-                        email = email ?: "",
-                        pw = pw ?: "",
+                        // 처음 앱 실행하고 로그인 버튼 클릭 시 바로 창 넘어가는 오류 해결하려고 임의값 부여
+                        email = email ?: "email",
+                        pw = pw ?: "pw",
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
@@ -70,7 +65,7 @@ class LoginActivity : ComponentActivity() { //로그인 화면 activity
 }
 
 @Composable
-fun Login(email: String,pw: String, modifier: Modifier = Modifier) {
+fun Login(email: String, pw: String, modifier: Modifier = Modifier) {
     val context = LocalContext.current
     val intent = Intent(context, SignUpActivity::class.java)
 
@@ -78,10 +73,11 @@ fun Login(email: String,pw: String, modifier: Modifier = Modifier) {
         modifier = Modifier
             .fillMaxSize()
             .background(Color.Black)
-            .padding(horizontal = 16.dp))
+            .padding(horizontal = 16.dp)
+    )
 
     {
-        Spacer(modifier = Modifier.height(30.dp))
+        Spacer(modifier = Modifier.height(80.dp))
         Text(
             text = "watcha",
             color = Color.Red,
@@ -92,6 +88,8 @@ fun Login(email: String,pw: String, modifier: Modifier = Modifier) {
             modifier = Modifier
                 .fillMaxWidth()
         )
+        Spacer(modifier = Modifier.height(30.dp))
+
         Text(
             text = "이메일로 로그인",
             fontFamily = FontFamily(Font(R.font.pretendard_bold)),
@@ -99,6 +97,8 @@ fun Login(email: String,pw: String, modifier: Modifier = Modifier) {
             color = Color.White,
             modifier = Modifier
         )
+        Spacer(modifier = Modifier.height(30.dp))
+
         // 이메일 입력
         Text(
             text = "이메일",
@@ -107,7 +107,7 @@ fun Login(email: String,pw: String, modifier: Modifier = Modifier) {
             color = Color.Gray,
             modifier = Modifier
         )
-        var emailinput by remember {mutableStateOf("")}
+        var emailinput by remember { mutableStateOf("") }
         TextField(
             value = emailinput,
             onValueChange = { emailinput = it },
@@ -120,12 +120,17 @@ fun Login(email: String,pw: String, modifier: Modifier = Modifier) {
             shape = RoundedCornerShape(16.dp),
             modifier = Modifier
                 .fillMaxWidth(),
-            label = { Text(text = "이메일 주소를 입력하세요",
-                fontFamily = FontFamily(Font(R.font.pretendard_regular)),
-                fontSize = 15.sp,
-                color = Color.LightGray)}
+            label = {
+                Text(
+                    text = "이메일 주소를 입력하세요",
+                    fontFamily = FontFamily(Font(R.font.pretendard_regular)),
+                    fontSize = 15.sp,
+                    color = Color.LightGray
+                )
+            }
         )
-        Spacer(modifier = Modifier.height(5.dp))
+        Spacer(modifier = Modifier.height(10.dp))
+
         // 비밀번호 입력
         Text(
             text = "비밀번호",
@@ -134,10 +139,10 @@ fun Login(email: String,pw: String, modifier: Modifier = Modifier) {
             color = Color.Gray,
             modifier = Modifier
         )
-        var pwinput by remember {mutableStateOf("")}
+        var pwinput by remember { mutableStateOf("") }
         TextField(
             value = pwinput,
-            onValueChange = { pwinput =it },
+            onValueChange = { pwinput = it },
             shape = RoundedCornerShape(16.dp),
             colors = TextFieldDefaults.colors(
                 Color.DarkGray,
@@ -149,20 +154,25 @@ fun Login(email: String,pw: String, modifier: Modifier = Modifier) {
                 .fillMaxWidth(),
             // 비밀번호 입력 가리기
             visualTransformation = PasswordVisualTransformation(),
-            label = { Text(text = "비밀번호를 입력하세요",
-                fontFamily = FontFamily(Font(R.font.pretendard_regular)),
-                fontSize = 15.sp,
-                color = Color.LightGray) }
+            label = {
+                Text(
+                    text = "비밀번호를 입력하세요",
+                    fontFamily = FontFamily(Font(R.font.pretendard_regular)),
+                    fontSize = 15.sp,
+                    color = Color.LightGray
+                )
+            }
         )
-//        Spacer(modifier = Modifier.height(300.dp))
+        Spacer(modifier = Modifier.height(320.dp))
 
+        // text 2개 가로로 나열하기 위해 Row에 만듦
         Row(
             modifier = Modifier
                 .fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center
 
-        ){
+        ) {
             Text(
                 text = "아직 계정이 없으신가요?",
                 color = Color.Gray,
@@ -171,7 +181,8 @@ fun Login(email: String,pw: String, modifier: Modifier = Modifier) {
                 modifier = Modifier
                     .padding(7.dp)
             )
-            // 회원가입 글자만 click 가능하게함
+
+            // 회원가입 글자만 click 가능하게끔 '회원가입' text 생성!
             Text(
                 text = "회원가입",
                 color = Color.Gray,
@@ -189,12 +200,12 @@ fun Login(email: String,pw: String, modifier: Modifier = Modifier) {
 
         Button(
             onClick = {
-                if (emailinput == email && pwinput == pw){
+                // email, pw가 같다는 조건 만족할 때만 'MainActivity'로 이동!
+                if (emailinput == email && pwinput == pw) {
                     val intent3 = Intent(context, MainActivity::class.java)
-                    context.startActivity(intent3) // MainActivity로 이동
+                    context.startActivity(intent3)
                     Toast.makeText(context, "로그인에 성공했습니다", Toast.LENGTH_SHORT).show()
-                }
-                else {
+                } else {
                     Toast.makeText(context, "로그인에 실패했습니다", Toast.LENGTH_SHORT).show()
                 }
             },
@@ -203,9 +214,11 @@ fun Login(email: String,pw: String, modifier: Modifier = Modifier) {
             colors = ButtonDefaults.buttonColors(containerColor = Color.Red),
             shape = RoundedCornerShape(8.dp),
         ) {
-            Text("로그인", color = Color.White,
+            Text(
+                "로그인", color = Color.White,
                 fontFamily = FontFamily(Font(R.font.pretendard_bold)),
-                fontSize = 17.sp)
+                fontSize = 17.sp
+            )
         }
 
     }
@@ -216,6 +229,6 @@ fun Login(email: String,pw: String, modifier: Modifier = Modifier) {
 @Composable
 fun LoginPreview() {
     LETSSOPTTheme {
-        Login("email","pw")
+        Login("email", "pw")
     }
 }
