@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -48,7 +49,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.letssopt.ui.theme.LETSSOPTTheme
 
-class LoginActivity : ComponentActivity() {
+class LoginActivity : ComponentActivity() { //로그인 화면 activity
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val email = intent.getStringExtra("email")
@@ -74,12 +75,13 @@ fun Login(email: String,pw: String, modifier: Modifier = Modifier) {
     val intent = Intent(context, SignUpActivity::class.java)
 
     Column(
-        modifier = modifier
+        modifier = Modifier
             .fillMaxSize()
             .background(Color.Black)
-            .padding(horizontal = 15.dp))
+            .padding(horizontal = 16.dp))
+
     {
-        Spacer(modifier = Modifier.height(50.dp))
+        Spacer(modifier = Modifier.height(30.dp))
         Text(
             text = "watcha",
             color = Color.Red,
@@ -87,28 +89,25 @@ fun Login(email: String,pw: String, modifier: Modifier = Modifier) {
             textAlign = TextAlign.Center,
             fontFamily = FontFamily(Font(R.font.pretendard_bold)),
             fontWeight = FontWeight.Bold,
-            modifier = modifier
+            modifier = Modifier
                 .fillMaxWidth()
-                .padding()
         )
-        Spacer(modifier = Modifier.height(10.dp))
         Text(
             text = "이메일로 로그인",
             fontFamily = FontFamily(Font(R.font.pretendard_bold)),
             fontSize = 20.sp,
             color = Color.White,
-            modifier = modifier
+            modifier = Modifier
         )
-        Spacer(modifier = Modifier.height(5.dp))
+        // 이메일 입력
         Text(
             text = "이메일",
             fontFamily = FontFamily(Font(R.font.pretendard_regular)),
             fontSize = 15.sp,
             color = Color.Gray,
-            modifier = modifier
+            modifier = Modifier
         )
         var emailinput by remember {mutableStateOf("")}
-
         TextField(
             value = emailinput,
             onValueChange = { emailinput = it },
@@ -127,14 +126,14 @@ fun Login(email: String,pw: String, modifier: Modifier = Modifier) {
                 color = Color.LightGray)}
         )
         Spacer(modifier = Modifier.height(5.dp))
+        // 비밀번호 입력
         Text(
             text = "비밀번호",
             fontFamily = FontFamily(Font(R.font.pretendard_regular)),
             fontSize = 15.sp,
             color = Color.Gray,
-            modifier = modifier
+            modifier = Modifier
         )
-
         var pwinput by remember {mutableStateOf("")}
         TextField(
             value = pwinput,
@@ -148,13 +147,15 @@ fun Login(email: String,pw: String, modifier: Modifier = Modifier) {
             textStyle = TextStyle(color = Color.LightGray),
             modifier = Modifier
                 .fillMaxWidth(),
+            // 비밀번호 입력 가리기
             visualTransformation = PasswordVisualTransformation(),
             label = { Text(text = "비밀번호를 입력하세요",
                 fontFamily = FontFamily(Font(R.font.pretendard_regular)),
                 fontSize = 15.sp,
                 color = Color.LightGray) }
         )
-        Spacer(modifier = Modifier.height(300.dp))
+//        Spacer(modifier = Modifier.height(300.dp))
+
         Row(
             modifier = Modifier
                 .fillMaxWidth(),
@@ -170,6 +171,7 @@ fun Login(email: String,pw: String, modifier: Modifier = Modifier) {
                 modifier = Modifier
                     .padding(7.dp)
             )
+            // 회원가입 글자만 click 가능하게함
             Text(
                 text = "회원가입",
                 color = Color.Gray,
@@ -189,7 +191,7 @@ fun Login(email: String,pw: String, modifier: Modifier = Modifier) {
             onClick = {
                 if (emailinput == email && pwinput == pw){
                     val intent3 = Intent(context, MainActivity::class.java)
-                    context.startActivity(intent3)
+                    context.startActivity(intent3) // MainActivity로 이동
                     Toast.makeText(context, "로그인에 성공했습니다", Toast.LENGTH_SHORT).show()
                 }
                 else {

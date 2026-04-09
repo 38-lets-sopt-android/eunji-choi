@@ -41,8 +41,7 @@ import com.example.letssopt.ui.theme.LETSSOPTTheme
 import java.util.regex.Pattern
 
 
-class SignUpActivity : ComponentActivity() {
-
+class SignUpActivity : ComponentActivity() { // 회원가입 activity
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -72,7 +71,7 @@ fun Signup(modifier: Modifier = Modifier) {
             .background(Color.Black)
             .padding(horizontal = 15.dp))
     {
-        Spacer(modifier = Modifier.height(50.dp))
+//        Spacer(modifier = Modifier.height(50.dp))
         Text(
             text = "watcha",
             color = Color.Red,
@@ -80,27 +79,27 @@ fun Signup(modifier: Modifier = Modifier) {
             textAlign = TextAlign.Center,
             fontFamily = FontFamily(Font(R.font.pretendard_bold)),
             fontWeight = FontWeight.Bold,
-            modifier = modifier
+            modifier = Modifier
                 .fillMaxWidth()
                 .padding()
         )
-        Spacer(modifier = Modifier.height(10.dp))
+//        Spacer(modifier = Modifier.height(10.dp))
         Text(
             text = "회원가입",
             fontFamily = FontFamily(Font(R.font.pretendard_bold)),
             fontSize = 20.sp,
             color = Color.White,
-            modifier = modifier
+            modifier = Modifier
         )
         Spacer(modifier = Modifier.height(5.dp))
+        // 이메일 입력
         Text(
             text = "이메일",
             fontFamily = FontFamily(Font(R.font.pretendard_regular)),
             fontSize = 15.sp,
             color = Color.Gray,
-            modifier = modifier
+            modifier = Modifier
         )
-
         var email by remember {mutableStateOf("")}
         TextField(
             value = email,
@@ -119,16 +118,16 @@ fun Signup(modifier: Modifier = Modifier) {
                 fontSize = 15.sp,
                 color = Color.LightGray) },
         )
-        Spacer(modifier = Modifier.height(5.dp))
+//        Spacer(modifier = Modifier.height(5.dp))
+        // 비밀번호 입력
         Text(
             text = "비밀번호",
             fontFamily = FontFamily(Font(R.font.pretendard_regular)),
             fontSize = 15.sp,
             color = Color.Gray,
-            modifier = modifier
+            modifier = Modifier
         )
         var pw by remember {mutableStateOf("")}
-
         TextField(
             value = pw,
             onValueChange = { pw = it },
@@ -147,13 +146,14 @@ fun Signup(modifier: Modifier = Modifier) {
                 fontSize = 15.sp,
                 color = Color.LightGray)}
         )
-        Spacer(modifier = Modifier.height(5.dp))
+//        Spacer(modifier = Modifier.height(5.dp))
+        // 비밀번호 확인
         Text(
             text = "비밀번호 확인",
             fontFamily = FontFamily(Font(R.font.pretendard_regular)),
             fontSize = 15.sp,
             color = Color.Gray,
-            modifier = modifier
+            modifier = Modifier
         )
         var pw2 by remember {mutableStateOf("")}
         TextField(
@@ -176,8 +176,11 @@ fun Signup(modifier: Modifier = Modifier) {
 
         Button(
             onClick = {
+                // 회원가입 조건 확인용 if문
+                // 조건 : email 형식, pw 길이 8~12자, 비밀번호 == 비밀번호 확인
                 if(pattern.matcher(email).matches() && pw.length >= 8 && pw.length <12
                     && pw == pw2){
+                    // putExtra로 email, password 전달
                     intent.putExtra("email",email)
                     intent.putExtra("password",pw)
                     context.startActivity(intent)
@@ -187,16 +190,14 @@ fun Signup(modifier: Modifier = Modifier) {
                     Toast.makeText(context, "회원가입에 실패했습니다", Toast.LENGTH_SHORT).show()
                 }
             },
+            // 입력칸 3개 모두 채워지면 버튼 활성화
             enabled = if (email.isNotEmpty() && pw.isNotEmpty() && pw2.isNotEmpty()) true
             else false,
-//
-
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(bottom = 16.dp),
             colors = ButtonDefaults.buttonColors(containerColor = Color.Red),
             shape = RoundedCornerShape(8.dp)
-
         ) {
             Text("회원가입", color = Color.White,
                 fontFamily = FontFamily(Font(R.font.pretendard_bold)),
