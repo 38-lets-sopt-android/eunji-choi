@@ -7,9 +7,12 @@ import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
@@ -17,6 +20,7 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -27,10 +31,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.sp
 import com.example.letssopt.ui.theme.LETSSOPTTheme
 import java.util.regex.Pattern
 
@@ -63,21 +69,35 @@ fun Signup(modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
             .fillMaxSize()
+            .background(Color.Black)
             .padding(horizontal = 15.dp))
     {
+        Spacer(modifier = Modifier.height(50.dp))
         Text(
-            text = "Watcha",
+            text = "watcha",
+            color = Color.Red,
+            fontSize = 40.sp,
             textAlign = TextAlign.Center,
             fontFamily = FontFamily(Font(R.font.pretendard_bold)),
             fontWeight = FontWeight.Bold,
             modifier = modifier
+                .fillMaxWidth()
+                .padding()
         )
+        Spacer(modifier = Modifier.height(10.dp))
         Text(
             text = "회원가입",
+            fontFamily = FontFamily(Font(R.font.pretendard_bold)),
+            fontSize = 20.sp,
+            color = Color.White,
             modifier = modifier
         )
+        Spacer(modifier = Modifier.height(5.dp))
         Text(
             text = "이메일",
+            fontFamily = FontFamily(Font(R.font.pretendard_regular)),
+            fontSize = 15.sp,
+            color = Color.Gray,
             modifier = modifier
         )
 
@@ -85,13 +105,26 @@ fun Signup(modifier: Modifier = Modifier) {
         TextField(
             value = email,
             onValueChange = { email = it },
+            colors = TextFieldDefaults.colors(
+                Color.DarkGray,
+                focusedIndicatorColor = Color.Transparent,
+                unfocusedIndicatorColor = Color.Transparent
+            ),
+            textStyle = TextStyle(color = Color.LightGray),
+            shape = RoundedCornerShape(16.dp),
             modifier = Modifier
                 .fillMaxWidth(),
-            label = { Text("이메일 주소를 입력하세요") }
+            label = { Text("이메일 주소를 입력하세요",
+                fontFamily = FontFamily(Font(R.font.pretendard_regular)),
+                fontSize = 15.sp,
+                color = Color.LightGray) },
         )
-
+        Spacer(modifier = Modifier.height(5.dp))
         Text(
             text = "비밀번호",
+            fontFamily = FontFamily(Font(R.font.pretendard_regular)),
+            fontSize = 15.sp,
+            color = Color.Gray,
             modifier = modifier
         )
         var pw by remember {mutableStateOf("")}
@@ -99,21 +132,46 @@ fun Signup(modifier: Modifier = Modifier) {
         TextField(
             value = pw,
             onValueChange = { pw = it },
+            shape = RoundedCornerShape(16.dp),
+            colors = TextFieldDefaults.colors(
+                Color.DarkGray,
+                focusedIndicatorColor = Color.Transparent,
+                unfocusedIndicatorColor = Color.Transparent
+            ),
+            textStyle = TextStyle(color = Color.LightGray),
+
             modifier = Modifier
                 .fillMaxWidth(),
-            label = { Text(text = "비밀번호를 입력하세요") }
+            label = { Text(text = "비밀번호를 입력하세요",
+                fontFamily = FontFamily(Font(R.font.pretendard_regular)),
+                fontSize = 15.sp,
+                color = Color.LightGray)}
         )
+        Spacer(modifier = Modifier.height(5.dp))
         Text(
             text = "비밀번호 확인",
+            fontFamily = FontFamily(Font(R.font.pretendard_regular)),
+            fontSize = 15.sp,
+            color = Color.Gray,
             modifier = modifier
         )
         var pw2 by remember {mutableStateOf("")}
         TextField(
             value = pw2,
             onValueChange = { pw2 = it },
+            shape = RoundedCornerShape(16.dp),
+            colors = TextFieldDefaults.colors(
+                Color.DarkGray,
+                focusedIndicatorColor = Color.Transparent,
+                unfocusedIndicatorColor = Color.Transparent
+            ),
+            textStyle = TextStyle(color = Color.LightGray),
             modifier = Modifier
                 .fillMaxWidth(),
-            label = { Text(text = "비밀번호를 다시 입력하세요") }
+            label = { Text(text = "비밀번호를 다시 입력하세요",
+                fontFamily = FontFamily(Font(R.font.pretendard_regular)),
+                fontSize = 15.sp,
+                color = Color.LightGray) }
         )
 
         Button(
@@ -140,7 +198,9 @@ fun Signup(modifier: Modifier = Modifier) {
             shape = RoundedCornerShape(8.dp)
 
         ) {
-            Text("회원가입", color = Color.White)
+            Text("회원가입", color = Color.White,
+                fontFamily = FontFamily(Font(R.font.pretendard_bold)),
+                fontSize = 17.sp)
         }
     }
 

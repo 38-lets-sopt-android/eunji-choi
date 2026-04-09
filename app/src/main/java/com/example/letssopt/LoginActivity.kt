@@ -6,24 +6,37 @@ import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Color.Companion.Gray
+import androidx.compose.ui.graphics.Color.Companion.Red
+import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -32,6 +45,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.letssopt.ui.theme.LETSSOPTTheme
 
 class LoginActivity : ComponentActivity() {
@@ -62,63 +76,115 @@ fun Login(email: String,pw: String, modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
             .fillMaxSize()
+            .background(Color.Black)
             .padding(horizontal = 15.dp))
     {
+        Spacer(modifier = Modifier.height(50.dp))
         Text(
-            text = "Watcha",
+            text = "watcha",
+            color = Color.Red,
+            fontSize = 40.sp,
             textAlign = TextAlign.Center,
             fontFamily = FontFamily(Font(R.font.pretendard_bold)),
             fontWeight = FontWeight.Bold,
             modifier = modifier
+                .fillMaxWidth()
+                .padding()
         )
+        Spacer(modifier = Modifier.height(10.dp))
         Text(
             text = "이메일로 로그인",
+            fontFamily = FontFamily(Font(R.font.pretendard_bold)),
+            fontSize = 20.sp,
+            color = Color.White,
             modifier = modifier
         )
+        Spacer(modifier = Modifier.height(5.dp))
         Text(
             text = "이메일",
+            fontFamily = FontFamily(Font(R.font.pretendard_regular)),
+            fontSize = 15.sp,
+            color = Color.Gray,
             modifier = modifier
         )
         var emailinput by remember {mutableStateOf("")}
+
         TextField(
             value = emailinput,
             onValueChange = { emailinput = it },
+            colors = TextFieldDefaults.colors(
+                Color.DarkGray,
+                focusedIndicatorColor = Color.Transparent,
+                unfocusedIndicatorColor = Color.Transparent
+            ),
+            textStyle = TextStyle(color = Color.LightGray),
+            shape = RoundedCornerShape(16.dp),
             modifier = Modifier
                 .fillMaxWidth(),
-            label = { Text(text = "이메일 주소를 입력하세요") }
+            label = { Text(text = "이메일 주소를 입력하세요",
+                fontFamily = FontFamily(Font(R.font.pretendard_regular)),
+                fontSize = 15.sp,
+                color = Color.LightGray)}
         )
+        Spacer(modifier = Modifier.height(5.dp))
         Text(
             text = "비밀번호",
+            fontFamily = FontFamily(Font(R.font.pretendard_regular)),
+            fontSize = 15.sp,
+            color = Color.Gray,
             modifier = modifier
         )
+
         var pwinput by remember {mutableStateOf("")}
-        var showPassword by remember { mutableStateOf(false) }
         TextField(
             value = pwinput,
             onValueChange = { pwinput =it },
+            shape = RoundedCornerShape(16.dp),
+            colors = TextFieldDefaults.colors(
+                Color.DarkGray,
+                focusedIndicatorColor = Color.Transparent,
+                unfocusedIndicatorColor = Color.Transparent
+            ),
+            textStyle = TextStyle(color = Color.LightGray),
             modifier = Modifier
                 .fillMaxWidth(),
-            visualTransformation = if (showPassword) {
-                VisualTransformation.None
-            } else {
-                PasswordVisualTransformation()
-            },
-            label = { Text(text = "비밀번호를 입력하세요") }
+            visualTransformation = PasswordVisualTransformation(),
+            label = { Text(text = "비밀번호를 입력하세요",
+                fontFamily = FontFamily(Font(R.font.pretendard_regular)),
+                fontSize = 15.sp,
+                color = Color.LightGray) }
         )
-        Text(
-            text = "아직 계정이 없으신가요?",
-            modifier = modifier
-        )
-        Button(
-            onClick = {
-                context.startActivity(intent)
-            },
+        Spacer(modifier = Modifier.height(300.dp))
+        Row(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(bottom = 16.dp)
-        ) {
-            Text("회원가입", color = Color.White)
+                .fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center
+
+        ){
+            Text(
+                text = "아직 계정이 없으신가요?",
+                color = Color.Gray,
+                fontFamily = FontFamily(Font(R.font.pretendard_regular)),
+                fontSize = 15.sp,
+                modifier = Modifier
+                    .padding(7.dp)
+            )
+            Text(
+                text = "회원가입",
+                color = Color.Gray,
+                fontFamily = FontFamily(Font(R.font.pretendard_regular)),
+                fontSize = 15.sp,
+                modifier = Modifier
+                    .padding(3.dp)
+                    .clickable(
+                        onClick = {
+                            context.startActivity(intent)
+                        }
+                    )
+            )
         }
+
         Button(
             onClick = {
                 if (emailinput == email && pwinput == pw){
@@ -131,12 +197,13 @@ fun Login(email: String,pw: String, modifier: Modifier = Modifier) {
                 }
             },
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(bottom = 16.dp),
+                .fillMaxWidth(),
             colors = ButtonDefaults.buttonColors(containerColor = Color.Red),
-            shape = RoundedCornerShape(8.dp)
+            shape = RoundedCornerShape(8.dp),
         ) {
-            Text("로그인", color = Color.White)
+            Text("로그인", color = Color.White,
+                fontFamily = FontFamily(Font(R.font.pretendard_bold)),
+                fontSize = 17.sp)
         }
 
     }
