@@ -47,7 +47,7 @@ fun Main(modifier: Modifier = Modifier) {
 
 @Preview(showBackground = true)
 @Composable
-fun MainPreview() {
+private fun MainPreview() {
     LETSSOPTTheme {
         Main()
     }

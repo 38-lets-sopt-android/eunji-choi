@@ -66,13 +66,18 @@ fun Signup(modifier: Modifier = Modifier) {
     val context = LocalContext.current
     val intent = Intent(context, LoginActivity::class.java)
 
+    var pw by remember { mutableStateOf("") }
+    var pw2 by remember { mutableStateOf("") }
+    var email by remember { mutableStateOf("") }
+
     Column(
         modifier = modifier
             .fillMaxSize()
             .background(Color.Black)
             .padding(horizontal = 15.dp)
     ) {
-        Spacer(modifier = Modifier.height(80.dp))
+        CustomSpacer(80)
+
         Text(
             text = "watcha",
             color = Color.Red,
@@ -84,7 +89,8 @@ fun Signup(modifier: Modifier = Modifier) {
                 .fillMaxWidth()
                 .padding()
         )
-        Spacer(modifier = Modifier.height(30.dp))
+
+        CustomSpacer(30)
 
         Text(
             text = "회원가입",
@@ -93,7 +99,8 @@ fun Signup(modifier: Modifier = Modifier) {
             color = Color.White,
             modifier = Modifier
         )
-        Spacer(modifier = Modifier.height(30.dp))
+
+        CustomSpacer(30)
 
         // 이메일 입력
         Text(
@@ -103,28 +110,14 @@ fun Signup(modifier: Modifier = Modifier) {
             color = Color.Gray,
             modifier = Modifier
         )
-        var email by remember { mutableStateOf("") }
-        TextField(
+
+        CustomTextField(
             value = email,
             onValueChange = { email = it },
-            colors = TextFieldDefaults.colors(
-                Color.DarkGray,
-                focusedIndicatorColor = Color.Transparent,
-                unfocusedIndicatorColor = Color.Transparent
-            ),
-            textStyle = TextStyle(color = Color.LightGray),
-            shape = RoundedCornerShape(16.dp),
-            modifier = Modifier.fillMaxWidth(),
-            label = {
-                Text(
-                    "이메일 주소를 입력하세요",
-                    fontFamily = FontFamily(Font(R.font.pretendard_regular)),
-                    fontSize = 15.sp,
-                    color = Color.LightGray
-                )
-            },
+            label = "이메일 주소를 입력하세요"
         )
-        Spacer(modifier = Modifier.height(10.dp))
+
+        CustomSpacer(10)
 
         // 비밀번호 입력
         Text(
@@ -134,28 +127,14 @@ fun Signup(modifier: Modifier = Modifier) {
             color = Color.Gray,
             modifier = Modifier
         )
-        var pw by remember { mutableStateOf("") }
-        TextField(
+
+        CustomTextField(
             value = pw,
             onValueChange = { pw = it },
-            shape = RoundedCornerShape(16.dp),
-            colors = TextFieldDefaults.colors(
-                Color.DarkGray,
-                focusedIndicatorColor = Color.Transparent,
-                unfocusedIndicatorColor = Color.Transparent
-            ),
-            textStyle = TextStyle(color = Color.LightGray),
+            label = "비밀번호를 입력하세요"
+        )
 
-            modifier = Modifier.fillMaxWidth(),
-            label = {
-                Text(
-                    text = "비밀번호를 입력하세요",
-                    fontFamily = FontFamily(Font(R.font.pretendard_regular)),
-                    fontSize = 15.sp,
-                    color = Color.LightGray
-                )
-            })
-        Spacer(modifier = Modifier.height(10.dp))
+        CustomSpacer(10)
 
         // 비밀번호 확인
         Text(
@@ -165,27 +144,14 @@ fun Signup(modifier: Modifier = Modifier) {
             color = Color.Gray,
             modifier = Modifier
         )
-        var pw2 by remember { mutableStateOf("") }
-        TextField(
+
+        CustomTextField(
             value = pw2,
             onValueChange = { pw2 = it },
-            shape = RoundedCornerShape(16.dp),
-            colors = TextFieldDefaults.colors(
-                Color.DarkGray,
-                focusedIndicatorColor = Color.Transparent,
-                unfocusedIndicatorColor = Color.Transparent
-            ),
-            textStyle = TextStyle(color = Color.LightGray),
-            modifier = Modifier.fillMaxWidth(),
-            label = {
-                Text(
-                    text = "비밀번호를 다시 입력하세요",
-                    fontFamily = FontFamily(Font(R.font.pretendard_regular)),
-                    fontSize = 15.sp,
-                    color = Color.LightGray
-                )
-            })
-        Spacer(modifier = Modifier.height(230.dp))
+            label = "비밀번호를 다시 입력하세요"
+        )
+
+        CustomSpacer(230)
 
         Button(
             onClick = {
@@ -226,7 +192,7 @@ fun Signup(modifier: Modifier = Modifier) {
 
 @Preview(showBackground = true)
 @Composable
-fun SignupPreview() {
+private fun SignupPreview() {
     LETSSOPTTheme {
         Signup()
     }

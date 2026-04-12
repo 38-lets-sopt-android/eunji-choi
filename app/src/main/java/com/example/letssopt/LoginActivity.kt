@@ -52,7 +52,7 @@ class LoginActivity : ComponentActivity() { //로그인 화면 activity
         setContent {
             LETSSOPTTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Login(
+                    LoginScreen(
                         // 처음 앱 실행하고 로그인 버튼 클릭 시 바로 창 넘어가는 오류 해결하려고 임의값 부여
                         email = email ?: "email",
                         pw = pw ?: "pw",
@@ -65,19 +65,22 @@ class LoginActivity : ComponentActivity() { //로그인 화면 activity
 }
 
 @Composable
-fun Login(email: String, pw: String, modifier: Modifier = Modifier) {
+fun LoginScreen(email: String, pw: String, modifier: Modifier = Modifier) {
     val context = LocalContext.current
     val intent = Intent(context, SignUpActivity::class.java)
 
+    var emailinput by remember { mutableStateOf("") }
+    var pwinput by remember { mutableStateOf("") }
+
     Column(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
             .background(Color.Black)
             .padding(horizontal = 16.dp)
     )
-
     {
-        Spacer(modifier = Modifier.height(80.dp))
+        CustomSpacer(80)
+
         Text(
             text = "watcha",
             color = Color.Red,
@@ -88,7 +91,8 @@ fun Login(email: String, pw: String, modifier: Modifier = Modifier) {
             modifier = Modifier
                 .fillMaxWidth()
         )
-        Spacer(modifier = Modifier.height(30.dp))
+
+        CustomSpacer(30)
 
         Text(
             text = "이메일로 로그인",
@@ -97,7 +101,8 @@ fun Login(email: String, pw: String, modifier: Modifier = Modifier) {
             color = Color.White,
             modifier = Modifier
         )
-        Spacer(modifier = Modifier.height(30.dp))
+
+        CustomSpacer(30)
 
         // 이메일 입력
         Text(
@@ -107,29 +112,14 @@ fun Login(email: String, pw: String, modifier: Modifier = Modifier) {
             color = Color.Gray,
             modifier = Modifier
         )
-        var emailinput by remember { mutableStateOf("") }
-        TextField(
+
+        CustomTextField(
             value = emailinput,
             onValueChange = { emailinput = it },
-            colors = TextFieldDefaults.colors(
-                Color.DarkGray,
-                focusedIndicatorColor = Color.Transparent,
-                unfocusedIndicatorColor = Color.Transparent
-            ),
-            textStyle = TextStyle(color = Color.LightGray),
-            shape = RoundedCornerShape(16.dp),
-            modifier = Modifier
-                .fillMaxWidth(),
-            label = {
-                Text(
-                    text = "이메일 주소를 입력하세요",
-                    fontFamily = FontFamily(Font(R.font.pretendard_regular)),
-                    fontSize = 15.sp,
-                    color = Color.LightGray
-                )
-            }
+            label = "이메일 주소를 입력하세요"
         )
-        Spacer(modifier = Modifier.height(10.dp))
+
+        CustomSpacer(10)
 
         // 비밀번호 입력
         Text(
@@ -139,31 +129,14 @@ fun Login(email: String, pw: String, modifier: Modifier = Modifier) {
             color = Color.Gray,
             modifier = Modifier
         )
-        var pwinput by remember { mutableStateOf("") }
-        TextField(
+
+        CustomTextField(
             value = pwinput,
             onValueChange = { pwinput = it },
-            shape = RoundedCornerShape(16.dp),
-            colors = TextFieldDefaults.colors(
-                Color.DarkGray,
-                focusedIndicatorColor = Color.Transparent,
-                unfocusedIndicatorColor = Color.Transparent
-            ),
-            textStyle = TextStyle(color = Color.LightGray),
-            modifier = Modifier
-                .fillMaxWidth(),
-            // 비밀번호 입력 가리기
-            visualTransformation = PasswordVisualTransformation(),
-            label = {
-                Text(
-                    text = "비밀번호를 입력하세요",
-                    fontFamily = FontFamily(Font(R.font.pretendard_regular)),
-                    fontSize = 15.sp,
-                    color = Color.LightGray
-                )
-            }
+            label = "비밀번호를 입력하세요"
         )
-        Spacer(modifier = Modifier.height(320.dp))
+
+        CustomSpacer(320)
 
         // text 2개 가로로 나열하기 위해 Row에 만듦
         Row(
@@ -227,8 +200,8 @@ fun Login(email: String, pw: String, modifier: Modifier = Modifier) {
 
 @Preview(showBackground = true)
 @Composable
-fun LoginPreview() {
+private fun LoginPreview() {
     LETSSOPTTheme {
-        Login("email", "pw")
+        LoginScreen("email", "pw")
     }
 }
