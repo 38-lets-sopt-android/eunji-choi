@@ -1,5 +1,6 @@
 package com.example.letssopt
 
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -10,6 +11,8 @@ import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ModifierLocalBeyondBoundsLayout
+import androidx.compose.ui.text.Placeholder
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -17,10 +20,16 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 
-@Composable
-fun CustomSpacer(dp:Int) {
-    val modifier = null
-    Spacer(modifier = Modifier.height(dp.dp))
+// Spacer(modifier.height(dp.dp) 커스텀
+//@Composable
+//fun CustomSpacer(dp:Int) {
+//    Spacer(modifier = Modifier.height(dp.dp))
+//}
+
+
+@Composable // Spacer(modifier.weight(1f) 커스텀
+fun ColumnScope.WeightSpacer(weight: Float, modifier: Modifier = Modifier) {
+    Spacer(modifier = modifier.weight(weight))
 }
 
 @Composable
@@ -39,7 +48,7 @@ fun CustomTextField(
         ),
         textStyle = TextStyle(color = Color.LightGray),
         modifier = Modifier.fillMaxWidth(),
-        label = {
+        placeholder = {
             Text(
                 text = label,
                 fontFamily = FontFamily(Font(R.font.pretendard_regular)),

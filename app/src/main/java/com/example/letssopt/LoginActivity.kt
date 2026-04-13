@@ -54,8 +54,8 @@ class LoginActivity : ComponentActivity() { //로그인 화면 activity
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     LoginScreen(
                         // 처음 앱 실행하고 로그인 버튼 클릭 시 바로 창 넘어가는 오류 해결하려고 임의값 부여
-                        email = email ?: "email",
-                        pw = pw ?: "pw",
+                        email = email ?: "",
+                        pw = pw ?: "",
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
@@ -67,19 +67,18 @@ class LoginActivity : ComponentActivity() { //로그인 화면 activity
 @Composable
 fun LoginScreen(email: String, pw: String, modifier: Modifier = Modifier) {
     val context = LocalContext.current
-    val intent = Intent(context, SignUpActivity::class.java)
+    val intent = remember { Intent(context, SignUpActivity::class.java) }
 
     var emailinput by remember { mutableStateOf("") }
     var pwinput by remember { mutableStateOf("") }
 
     Column(
         modifier = modifier
-            .fillMaxSize()
             .background(Color.Black)
             .padding(horizontal = 16.dp)
     )
     {
-        CustomSpacer(80)
+        WeightSpacer(0.5f)
 
         Text(
             text = "watcha",
@@ -92,7 +91,7 @@ fun LoginScreen(email: String, pw: String, modifier: Modifier = Modifier) {
                 .fillMaxWidth()
         )
 
-        CustomSpacer(30)
+        WeightSpacer(0.3f)
 
         Text(
             text = "이메일로 로그인",
@@ -102,7 +101,7 @@ fun LoginScreen(email: String, pw: String, modifier: Modifier = Modifier) {
             modifier = Modifier
         )
 
-        CustomSpacer(30)
+        WeightSpacer(0.2f)
 
         // 이메일 입력
         Text(
@@ -119,7 +118,7 @@ fun LoginScreen(email: String, pw: String, modifier: Modifier = Modifier) {
             label = "이메일 주소를 입력하세요"
         )
 
-        CustomSpacer(10)
+        WeightSpacer(0.2f)
 
         // 비밀번호 입력
         Text(
@@ -130,13 +129,14 @@ fun LoginScreen(email: String, pw: String, modifier: Modifier = Modifier) {
             modifier = Modifier
         )
 
+
         CustomTextField(
             value = pwinput,
             onValueChange = { pwinput = it },
             label = "비밀번호를 입력하세요"
         )
 
-        CustomSpacer(320)
+        WeightSpacer(1f)
 
         // text 2개 가로로 나열하기 위해 Row에 만듦
         Row(
@@ -171,12 +171,15 @@ fun LoginScreen(email: String, pw: String, modifier: Modifier = Modifier) {
             )
         }
 
+        WeightSpacer(0.05f)
+
         Button(
             onClick = {
                 // email, pw가 같다는 조건 만족할 때만 'MainActivity'로 이동!
-                if (emailinput == email && pwinput == pw) {
-                    val intent3 = Intent(context, MainActivity::class.java)
-                    context.startActivity(intent3)
+                if (emailinput.isNotEmpty() && pwinput.isNotEmpty() &&
+                    emailinput == email && pwinput == pw) {
+                    val toMainintent = Intent(context, MainActivity::class.java)
+                    context.startActivity(toMainintent)
                     Toast.makeText(context, "로그인에 성공했습니다", Toast.LENGTH_SHORT).show()
                 } else {
                     Toast.makeText(context, "로그인에 실패했습니다", Toast.LENGTH_SHORT).show()
@@ -193,6 +196,8 @@ fun LoginScreen(email: String, pw: String, modifier: Modifier = Modifier) {
                 fontSize = 17.sp
             )
         }
+
+        WeightSpacer(0.4f)
 
     }
 

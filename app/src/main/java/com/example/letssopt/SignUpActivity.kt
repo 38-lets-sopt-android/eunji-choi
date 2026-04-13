@@ -59,8 +59,6 @@ class SignUpActivity : ComponentActivity() { // 회원가입 activity
     }
 }
 
-private var pattern: Pattern = Patterns.EMAIL_ADDRESS
-
 @Composable
 fun Signup(modifier: Modifier = Modifier) {
     val context = LocalContext.current
@@ -76,7 +74,7 @@ fun Signup(modifier: Modifier = Modifier) {
             .background(Color.Black)
             .padding(horizontal = 15.dp)
     ) {
-        CustomSpacer(80)
+        WeightSpacer(0.5f)
 
         Text(
             text = "watcha",
@@ -87,10 +85,9 @@ fun Signup(modifier: Modifier = Modifier) {
             fontWeight = FontWeight.Bold,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding()
         )
 
-        CustomSpacer(30)
+        WeightSpacer(0.3f)
 
         Text(
             text = "회원가입",
@@ -100,7 +97,7 @@ fun Signup(modifier: Modifier = Modifier) {
             modifier = Modifier
         )
 
-        CustomSpacer(30)
+        WeightSpacer(0.2f)
 
         // 이메일 입력
         Text(
@@ -117,7 +114,7 @@ fun Signup(modifier: Modifier = Modifier) {
             label = "이메일 주소를 입력하세요"
         )
 
-        CustomSpacer(10)
+        WeightSpacer(0.1f)
 
         // 비밀번호 입력
         Text(
@@ -134,7 +131,7 @@ fun Signup(modifier: Modifier = Modifier) {
             label = "비밀번호를 입력하세요"
         )
 
-        CustomSpacer(10)
+        WeightSpacer(0.1f)
 
         // 비밀번호 확인
         Text(
@@ -151,13 +148,13 @@ fun Signup(modifier: Modifier = Modifier) {
             label = "비밀번호를 다시 입력하세요"
         )
 
-        CustomSpacer(230)
+        WeightSpacer(0.8f)
 
         Button(
             onClick = {
                 // 회원가입 조건 확인용 if문
                 // 조건 : email 형식, pw 길이 8~12자, 비밀번호 == 비밀번호 확인
-                if (pattern.matcher(email)
+                if (Patterns.EMAIL_ADDRESS.matcher(email)
                         .matches() && pw.length >= 8 && pw.length < 12 && pw == pw2
                 ) {
                     // putExtra로 email, password 전달
@@ -185,6 +182,7 @@ fun Signup(modifier: Modifier = Modifier) {
                 fontSize = 17.sp
             )
         }
+        WeightSpacer(0.4f)
     }
 
 }
