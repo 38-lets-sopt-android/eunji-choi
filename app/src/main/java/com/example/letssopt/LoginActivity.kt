@@ -17,9 +17,12 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Scaffold
@@ -76,6 +79,7 @@ fun LoginScreen(email: String, pw: String, modifier: Modifier = Modifier) {
         modifier = modifier
             .background(Color.Black)
             .padding(horizontal = 16.dp)
+            .imePadding() // 키보드 높이만큼 자동으로 패딩 추가!
     )
     {
         WeightSpacer(0.5f)

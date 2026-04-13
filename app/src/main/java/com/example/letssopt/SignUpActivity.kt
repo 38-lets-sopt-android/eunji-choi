@@ -16,9 +16,12 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Scaffold
@@ -75,6 +78,7 @@ fun Signup(modifier: Modifier = Modifier) {
             .fillMaxSize()
             .background(Color.Black)
             .padding(horizontal = 15.dp)
+            .imePadding() // 키보드 높이만큼 자동으로 패딩 추가!
     ) {
         WeightSpacer(0.5f)
 
