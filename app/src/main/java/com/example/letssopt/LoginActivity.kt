@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Scaffold
@@ -36,6 +37,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -115,7 +117,8 @@ fun LoginScreen(email: String, pw: String, modifier: Modifier = Modifier) {
         CustomTextField(
             value = emailinput,
             onValueChange = { emailinput = it },
-            label = "이메일 주소를 입력하세요"
+            label = "이메일 주소를 입력하세요",
+            keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next)
         )
 
         WeightSpacer(0.2f)
@@ -133,7 +136,8 @@ fun LoginScreen(email: String, pw: String, modifier: Modifier = Modifier) {
         CustomTextField(
             value = pwinput,
             onValueChange = { pwinput = it },
-            label = "비밀번호를 입력하세요"
+            label = "비밀번호를 입력하세요",
+            keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done)
         )
 
         WeightSpacer(1f)

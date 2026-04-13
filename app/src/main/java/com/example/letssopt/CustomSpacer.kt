@@ -3,16 +3,14 @@ package com.example.letssopt
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ModifierLocalBeyondBoundsLayout
-import androidx.compose.ui.text.Placeholder
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -34,9 +32,11 @@ fun ColumnScope.WeightSpacer(weight: Float, modifier: Modifier = Modifier) {
 
 @Composable
 fun CustomTextField(
-    value : String,
-    onValueChange : (String) -> Unit,
-    label : String){
+    value: String,
+    onValueChange: (String) -> Unit,
+    label: String,
+    keyboardOptions: KeyboardOptions = KeyboardOptions.Default
+) {
     TextField(
         value = value,
         onValueChange = onValueChange,
@@ -47,7 +47,8 @@ fun CustomTextField(
             unfocusedIndicatorColor = Color.Transparent
         ),
         textStyle = TextStyle(color = Color.LightGray),
-        modifier = Modifier.fillMaxWidth(),
+        singleLine = true, // 텍스트 입력 2줄 방지
+        keyboardOptions = keyboardOptions,
         placeholder = {
             Text(
                 text = label,
@@ -55,7 +56,9 @@ fun CustomTextField(
                 fontSize = 15.sp,
                 color = Color.LightGray
             )
-        }
+        },
+        modifier = Modifier
+            .fillMaxWidth()
     )
 }
 

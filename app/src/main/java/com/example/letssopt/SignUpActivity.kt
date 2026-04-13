@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Scaffold
@@ -33,6 +34,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -111,7 +113,9 @@ fun Signup(modifier: Modifier = Modifier) {
         CustomTextField(
             value = email,
             onValueChange = { email = it },
-            label = "이메일 주소를 입력하세요"
+            label = "이메일 주소를 입력하세요",
+            // 엔터키 입력시 다음 칸으로 이동
+            keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next)
         )
 
         WeightSpacer(0.1f)
@@ -128,7 +132,8 @@ fun Signup(modifier: Modifier = Modifier) {
         CustomTextField(
             value = pw,
             onValueChange = { pw = it },
-            label = "비밀번호를 입력하세요"
+            label = "비밀번호를 입력하세요",
+            keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next)
         )
 
         WeightSpacer(0.1f)
@@ -145,7 +150,9 @@ fun Signup(modifier: Modifier = Modifier) {
         CustomTextField(
             value = pw2,
             onValueChange = { pw2 = it },
-            label = "비밀번호를 다시 입력하세요"
+            label = "비밀번호를 다시 입력하세요",
+            keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done)
+            // 마지막 TextField는 엔터키 누르면 키보드 내려가도록!
         )
 
         WeightSpacer(0.8f)
