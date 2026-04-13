@@ -8,10 +8,12 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.indication
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -22,8 +24,6 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -33,12 +33,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -177,23 +175,28 @@ fun LoginScreen(email: String, pw: String, modifier: Modifier = Modifier) {
 
         WeightSpacer(0.05f)
 
-        Button(
-            onClick = {
-                // email, pw가 같다는 조건 만족할 때만 'MainActivity'로 이동!
-                if (emailinput.isNotEmpty() && pwinput.isNotEmpty() &&
-                    emailinput == email && pwinput == pw) {
-                    val toMainintent = Intent(context, MainActivity::class.java)
-                    context.startActivity(toMainintent)
-                    Toast.makeText(context, "로그인에 성공했습니다", Toast.LENGTH_SHORT).show()
-                } else {
-                    Toast.makeText(context, "로그인에 실패했습니다", Toast.LENGTH_SHORT).show()
-                }
-            },
+        Box(
             modifier = Modifier
-                .fillMaxWidth(),
-            colors = ButtonDefaults.buttonColors(containerColor = Color.Red),
-            shape = RoundedCornerShape(8.dp),
-        ) {
+                .fillMaxWidth()
+                .height(50.dp)
+                .background(Color.Red, RoundedCornerShape(8.dp))
+                .noRippleClickable (
+                    enabled = true,
+                    onClick = {
+                        // email, pw가 같다는 조건 만족할 때만 'MainActivity'로 이동!
+                        if (emailinput.isNotEmpty() && pwinput.isNotEmpty() &&
+                            emailinput == email && pwinput == pw
+                        ) {
+                            val mainintent = Intent(context, MainActivity::class.java)
+                            context.startActivity(mainintent)
+                            Toast.makeText(context, "로그인에 성공했습니다", Toast.LENGTH_SHORT).show()
+                        } else {
+                            Toast.makeText(context, "로그인에 실패했습니다", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                ),
+            contentAlignment = Alignment.Center
+        ){
             Text(
                 "로그인", color = Color.White,
                 fontFamily = FontFamily(Font(R.font.pretendard_bold)),

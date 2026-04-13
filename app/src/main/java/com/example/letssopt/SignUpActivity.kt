@@ -8,8 +8,11 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.indication
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -20,17 +23,15 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -40,7 +41,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.letssopt.ui.theme.LETSSOPTTheme
-import java.util.regex.Pattern
 
 
 class SignUpActivity : ComponentActivity() { // 회원가입 activity
@@ -157,30 +157,32 @@ fun Signup(modifier: Modifier = Modifier) {
 
         WeightSpacer(0.8f)
 
-        Button(
-            onClick = {
-                // 회원가입 조건 확인용 if문
-                // 조건 : email 형식, pw 길이 8~12자, 비밀번호 == 비밀번호 확인
-                if (Patterns.EMAIL_ADDRESS.matcher(email)
-                        .matches() && pw.length >= 8 && pw.length < 12 && pw == pw2
-                ) {
-                    // putExtra로 email, password 전달
-                    intent.putExtra("email", email)
-                    intent.putExtra("password", pw)
-                    context.startActivity(intent)
-                    Toast.makeText(context, "회원가입에 성공했습니다", Toast.LENGTH_SHORT).show()
-                } else {
-                    Toast.makeText(context, "회원가입에 실패했습니다", Toast.LENGTH_SHORT).show()
-                }
-            },
-            // 입력칸 3개 모두 채워지면 버튼 활성화
-            enabled = if (email.isNotEmpty() && pw.isNotEmpty() && pw2.isNotEmpty()) true
-            else false,
+        val isEnabled = email.isNotEmpty() && pw.isNotEmpty() && pw2.isNotEmpty()
+        Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(bottom = 16.dp),
-            colors = ButtonDefaults.buttonColors(containerColor = Color.Red),
-            shape = RoundedCornerShape(8.dp)
+                .height(50.dp)
+                .background( if (isEnabled) Color.Red else Color.Gray,
+                    RoundedCornerShape(8.dp))
+                .noRippleClickable (
+                    enabled = isEnabled,
+                    onClick = {
+                        // 회원가입 조건 확인용 if문
+                        // 조건 : email 형식, pw 길이 8~12자, 비밀번호 == 비밀번호 확인
+                        if (Patterns.EMAIL_ADDRESS.matcher(email)
+                                .matches() && pw.length >= 8 && pw.length < 12 && pw == pw2
+                        ) {
+                            // putExtra로 email, password 전달
+                            intent.putExtra("email", email)
+                            intent.putExtra("password", pw)
+                            context.startActivity(intent)
+                            Toast.makeText(context, "회원가입에 성공했습니다", Toast.LENGTH_SHORT).show()
+                        } else {
+                            Toast.makeText(context, "회원가입에 실패했습니다", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                ),
+            contentAlignment = Alignment.Center
         ) {
             Text(
                 "회원가입",
@@ -189,6 +191,7 @@ fun Signup(modifier: Modifier = Modifier) {
                 fontSize = 17.sp
             )
         }
+
         WeightSpacer(0.4f)
     }
 
