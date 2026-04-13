@@ -67,7 +67,6 @@ class SignUpActivity : ComponentActivity() { // 회원가입 activity
 @Composable
 fun Signup(modifier: Modifier = Modifier) {
     val context = LocalContext.current
-    val intent = Intent(context, LoginActivity::class.java)
 
     var pw by remember { mutableStateOf("") }
     var pw2 by remember { mutableStateOf("") }
@@ -176,6 +175,7 @@ fun Signup(modifier: Modifier = Modifier) {
                         if (Patterns.EMAIL_ADDRESS.matcher(email)
                                 .matches() && pw.length >= 8 && pw.length < 12 && pw == pw2
                         ) {
+                            val intent = Intent(context, LoginActivity::class.java)
                             // putExtra로 email, password 전달
                             intent.putExtra("email", email)
                             intent.putExtra("password", pw)

@@ -8,8 +8,6 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.indication
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -19,12 +17,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -70,7 +64,6 @@ class LoginActivity : ComponentActivity() { //로그인 화면 activity
 @Composable
 fun LoginScreen(email: String, pw: String, modifier: Modifier = Modifier) {
     val context = LocalContext.current
-    val intent = remember { Intent(context, SignUpActivity::class.java) }
 
     var emailinput by remember { mutableStateOf("") }
     var pwinput by remember { mutableStateOf("") }
@@ -171,6 +164,7 @@ fun LoginScreen(email: String, pw: String, modifier: Modifier = Modifier) {
                     .padding(3.dp)
                     .clickable(
                         onClick = {
+                            val intent = Intent(context, SignUpActivity::class.java)
                             context.startActivity(intent)
                         }
                     )
@@ -184,7 +178,7 @@ fun LoginScreen(email: String, pw: String, modifier: Modifier = Modifier) {
                 .fillMaxWidth()
                 .height(50.dp)
                 .background(Color.Red, RoundedCornerShape(8.dp))
-                .noRippleClickable (
+                .noRippleClickable(
                     enabled = true,
                     onClick = {
                         // email, pw가 같다는 조건 만족할 때만 'MainActivity'로 이동!
@@ -200,7 +194,7 @@ fun LoginScreen(email: String, pw: String, modifier: Modifier = Modifier) {
                     }
                 ),
             contentAlignment = Alignment.Center
-        ){
+        ) {
             Text(
                 "로그인", color = Color.White,
                 fontFamily = FontFamily(Font(R.font.pretendard_bold)),
