@@ -34,6 +34,7 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -43,8 +44,18 @@ import com.example.letssopt.ui.theme.LETSSOPTTheme
 class LoginActivity : ComponentActivity() { //로그인 화면 activity
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         val email = intent.getStringExtra("email")
         val pw = intent.getStringExtra("password")
+
+        val isLoggedIn = LoginSave.prefs.getBoolean("is_logged_in", false)
+        if (isLoggedIn) {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish() // 뒤로가기 시 LoginActivity로 안 돌아오게끔
+            return
+        }
+
         enableEdgeToEdge()
         setContent {
             LETSSOPTTheme {
@@ -132,7 +143,8 @@ fun LoginScreen(email: String, pw: String, modifier: Modifier = Modifier) {
             value = pwinput,
             onValueChange = { pwinput = it },
             label = "비밀번호를 입력하세요",
-            keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done)
+            keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
+            visualTransformation = PasswordVisualTransformation()
         )
 
         WeightSpacer(1f)
@@ -185,6 +197,9 @@ fun LoginScreen(email: String, pw: String, modifier: Modifier = Modifier) {
                         if (emailinput.isNotEmpty() && pwinput.isNotEmpty() &&
                             emailinput == email && pwinput == pw
                         ) {
+                            //로그인 여부 저장
+                            LoginSave.prefs.setBoolean("is_logged_in", true)
+
                             val mainintent = Intent(context, MainActivity::class.java)
                             context.startActivity(mainintent)
                             Toast.makeText(context, "로그인에 성공했습니다", Toast.LENGTH_SHORT).show()
