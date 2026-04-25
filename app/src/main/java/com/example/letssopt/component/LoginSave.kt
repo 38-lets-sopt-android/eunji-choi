@@ -1,4 +1,4 @@
-package com.example.letssopt
+package com.example.letssopt.component
 
 import android.app.Application
 

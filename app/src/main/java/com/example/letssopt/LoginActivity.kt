@@ -39,6 +39,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.letssopt.component.CustomTextField
+import com.example.letssopt.component.LoginSave
+import com.example.letssopt.component.WeightSpacer
+import com.example.letssopt.component.noRippleClickable
 import com.example.letssopt.ui.theme.LETSSOPTTheme
 
 class LoginActivity : ComponentActivity() { //로그인 화면 activity

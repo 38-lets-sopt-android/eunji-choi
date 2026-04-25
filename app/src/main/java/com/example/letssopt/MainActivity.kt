@@ -26,6 +26,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.res.painterResource
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.letssopt.component.MainScreen
+import com.example.letssopt.component.MainViewModel
+import com.example.letssopt.component.PurchaseScreen
+import com.example.letssopt.component.SearchScreen
+import com.example.letssopt.component.StorageScreen
+import com.example.letssopt.component.WebtoonScreen
 
 
 class MainActivity : ComponentActivity() {

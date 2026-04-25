@@ -1,4 +1,4 @@
-package com.example.letssopt
+package com.example.letssopt.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -30,6 +30,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import com.example.letssopt.R
 
 // 각 탭 화면들 (함수 하나 = 화면 하나)
 @Composable

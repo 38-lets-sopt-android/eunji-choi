@@ -1,6 +1,7 @@
-package com.example.letssopt
+package com.example.letssopt.component
 
 import androidx.lifecycle.ViewModel
+import com.example.letssopt.R
 
 data class DramaItem(
     val imageRes: Int,
