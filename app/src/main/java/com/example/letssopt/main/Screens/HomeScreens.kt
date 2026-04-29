@@ -49,7 +49,7 @@ fun HomeScreen(
 
         item {Spacer(modifier = Modifier.height(20.dp))}
 
-        item {drama_section(contents = viewModel.newList, onContentClick = {})}
+        item {drama_section(contents = viewModel.dramaList, onContentClick = {})}
 
         item {Spacer(modifier = Modifier.height(20.dp))}
 
