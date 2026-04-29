@@ -1,4 +1,4 @@
-package com.example.letssopt
+package com.example.letssopt.login
 
 import android.content.Intent
 import android.os.Bundle
@@ -39,10 +39,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.letssopt.R
+import com.example.letssopt.signup.SignUpActivity
 import com.example.letssopt.component.CustomTextField
-import com.example.letssopt.component.LoginSave
 import com.example.letssopt.component.WeightSpacer
 import com.example.letssopt.component.noRippleClickable
+import com.example.letssopt.main.MainActivity
 import com.example.letssopt.ui.theme.LETSSOPTTheme
 
 class LoginActivity : ComponentActivity() { //로그인 화면 activity
@@ -52,7 +54,7 @@ class LoginActivity : ComponentActivity() { //로그인 화면 activity
         val email = intent.getStringExtra("email")
         val pw = intent.getStringExtra("password")
 
-        val isLoggedIn = LoginSave.prefs.getBoolean("is_logged_in", false)
+        val isLoggedIn = LoginSave.Companion.prefs.getBoolean("is_logged_in", false)
         if (isLoggedIn) {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
@@ -127,7 +129,7 @@ fun LoginScreen(email: String, pw: String, modifier: Modifier = Modifier) {
         CustomTextField(
             value = emailinput,
             onValueChange = { emailinput = it },
-            label = "이메일 주소를 입력하세요",
+            placeholder = "이메일 주소를 입력하세요",
             keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next)
         )
 
@@ -146,7 +148,7 @@ fun LoginScreen(email: String, pw: String, modifier: Modifier = Modifier) {
         CustomTextField(
             value = pwinput,
             onValueChange = { pwinput = it },
-            label = "비밀번호를 입력하세요",
+            placeholder = "비밀번호를 입력하세요",
             keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
             visualTransformation = PasswordVisualTransformation()
         )
@@ -202,7 +204,7 @@ fun LoginScreen(email: String, pw: String, modifier: Modifier = Modifier) {
                             emailinput == email && pwinput == pw
                         ) {
                             //로그인 여부 저장
-                            LoginSave.prefs.setBoolean("is_logged_in", true)
+                            LoginSave.Companion.prefs.setBoolean("is_logged_in", true)
 
                             val mainintent = Intent(context, MainActivity::class.java)
                             context.startActivity(mainintent)

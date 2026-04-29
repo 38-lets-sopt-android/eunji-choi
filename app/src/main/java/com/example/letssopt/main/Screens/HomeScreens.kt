@@ -1,9 +1,8 @@
-package com.example.letssopt.component
+package com.example.letssopt.main.Screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -31,11 +30,12 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import com.example.letssopt.R
+import com.example.letssopt.main.MainViewModel
 
 // 각 탭 화면들 (함수 하나 = 화면 하나)
 @Composable
-fun MainScreen(
-    viewModel: MainViewModel = viewModel()
+fun HomeScreen(
+    viewModel: MainViewModel
 ) {
     LazyColumn {
         item {
@@ -47,8 +47,7 @@ fun MainScreen(
                 text = "방금 막 도착한 신상 컨텐츠!",
                 fontFamily = FontFamily(Font(R.font.pretendard_bold)),
                 fontSize = 20.sp,
-                color = Color.White,
-                modifier = Modifier
+                color = Color.White
             )
         }
 
@@ -57,8 +56,7 @@ fun MainScreen(
                 text = "예능부터 드라마까지!",
                 fontFamily = FontFamily(Font(R.font.pretendard_bold)),
                 fontSize = 15.sp,
-                color = Color.Gray,
-                modifier = Modifier
+                color = Color.Gray
             )
         }
 
@@ -87,9 +85,8 @@ fun MainScreen(
         item {
             Column {
                 Image(
-                    painter = painterResource(id = R.drawable.whatgorism),
-                    contentDescription = null,
-                    modifier = Modifier // 텍스트 높이에 맞게 조절
+                    painter = painterResource(id = R.drawable.img_logo_whatgorism),
+                    contentDescription = null
                 )
                 Row(
                     modifier = Modifier.fillMaxWidth(),
@@ -145,8 +142,7 @@ fun MainScreen(
                     text = "공개 예정 콘텐츠",
                     fontFamily = FontFamily(Font(R.font.pretendard_bold)),
                     fontSize = 20.sp,
-                    color = Color.White,
-                    modifier = Modifier
+                    color = Color.White
                 )
                 Text(
                     text = "더보기",
@@ -188,8 +184,7 @@ fun MainScreen(
                     text = "왓챠 파티",
                     fontFamily = FontFamily(Font(R.font.pretendard_bold)),
                     fontSize = 20.sp,
-                    color = Color.White,
-                    modifier = Modifier
+                    color = Color.White
                 )
                 Text(
                     text = "더보기",
@@ -241,30 +236,4 @@ fun MainScreen(
     }
 }
 
-    @Composable
-fun PurchaseScreen() {
-    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        Text(text = "개별 구매 화면")
-    }
-}
 
-@Composable
-fun WebtoonScreen() {
-    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        Text(text = "웹툰 화면")
-    }
-}
-
-@Composable
-fun SearchScreen() {
-    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        Text(text = "찾기 화면")
-    }
-}
-
-@Composable
-fun StorageScreen() {
-    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        Text(text = "보관함 화면")
-    }
-}

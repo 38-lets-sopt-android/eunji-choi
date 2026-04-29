@@ -1,4 +1,4 @@
-package com.example.letssopt
+package com.example.letssopt.main
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
@@ -24,14 +25,16 @@ import androidx.compose.ui.unit.dp
 import com.example.letssopt.ui.theme.LETSSOPTTheme
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.vectorResource
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.letssopt.component.MainScreen
-import com.example.letssopt.component.MainViewModel
-import com.example.letssopt.component.PurchaseScreen
-import com.example.letssopt.component.SearchScreen
-import com.example.letssopt.component.StorageScreen
-import com.example.letssopt.component.WebtoonScreen
+import com.example.letssopt.main.Screens.HomeScreen
+import com.example.letssopt.main.Screens.PurchaseScreen
+import com.example.letssopt.main.Screens.SearchScreen
+import com.example.letssopt.main.Screens.StorageScreen
+import com.example.letssopt.main.Screens.WebtoonScreen
 
 
 class MainActivity : ComponentActivity() {
@@ -51,9 +54,7 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun Main(modifier: Modifier = Modifier, viewModel: MainViewModel = viewModel()) {
 
-    var selectedIndex by remember { mutableStateOf(0) }
-    val navItems = listOf("메인", "개별 구매", "웹툰", "찾기", "보관함")
-
+    var selectedItem by remember { mutableStateOf(0) }
     Scaffold(
         topBar = {
             TopAppBar(
@@ -74,12 +75,20 @@ fun Main(modifier: Modifier = Modifier, viewModel: MainViewModel = viewModel()) 
 
         bottomBar = {
             NavigationBar {
-                navItems.forEachIndexed { index, label ->
+                viewModel.bottomIcons.forEachIndexed { index, baricon ->
                     NavigationBarItem(
-                        selected = selectedIndex == index,
-                        onClick = { selectedIndex = index },
-                        icon = {},
-                        label = { Text(text = label) }
+                        selected = selectedItem == index,
+                        onClick = { selectedItem = index },
+                        icon = {
+                            Icon(
+                                imageVector = ImageVector.vectorResource(id = baricon.icon),
+                                contentDescription = null,
+                                tint = Color.Unspecified,
+                            )
+                        },
+                        label = {
+                            Text(text = baricon.label)
+                        }
                     )
                 }
             }
@@ -91,8 +100,8 @@ fun Main(modifier: Modifier = Modifier, viewModel: MainViewModel = viewModel()) 
                 .padding(innerPadding)
                 .padding(horizontal = 15.dp)
         ) {
-            when (selectedIndex) {
-                0 -> MainScreen()
+            when (selectedItem) {
+                0 -> HomeScreen(viewModel = viewModel)
                 1 -> PurchaseScreen()
                 2 -> WebtoonScreen()
                 3 -> SearchScreen()

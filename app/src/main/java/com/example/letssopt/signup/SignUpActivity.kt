@@ -1,4 +1,4 @@
-package com.example.letssopt
+package com.example.letssopt.signup
 
 import android.content.Intent
 import android.os.Bundle
@@ -36,9 +36,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.letssopt.R
 import com.example.letssopt.component.CustomTextField
 import com.example.letssopt.component.WeightSpacer
 import com.example.letssopt.component.noRippleClickable
+import com.example.letssopt.login.LoginActivity
 import com.example.letssopt.ui.theme.LETSSOPTTheme
 
 
@@ -112,7 +114,7 @@ fun Signup(modifier: Modifier = Modifier) {
         CustomTextField(
             value = email,
             onValueChange = { email = it },
-            label = "이메일 주소를 입력하세요",
+            placeholder = "이메일 주소를 입력하세요",
             // 엔터키 입력시 다음 칸으로 이동
             keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next)
         )
@@ -131,7 +133,7 @@ fun Signup(modifier: Modifier = Modifier) {
         CustomTextField(
             value = pw,
             onValueChange = { pw = it },
-            label = "비밀번호를 입력하세요",
+            placeholder = "비밀번호를 입력하세요",
             keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next)
         )
 
@@ -149,7 +151,7 @@ fun Signup(modifier: Modifier = Modifier) {
         CustomTextField(
             value = pw2,
             onValueChange = { pw2 = it },
-            label = "비밀번호를 다시 입력하세요",
+            placeholder = "비밀번호를 다시 입력하세요",
             keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done)
             // 마지막 TextField는 엔터키 누르면 키보드 내려가도록!
         )
