@@ -1,4 +1,4 @@
-package com.example.letssopt
+package com.example.letssopt.signup
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,9 +8,6 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.indication
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -18,12 +15,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -37,13 +30,19 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.letssopt.R
+import com.example.letssopt.component.CustomTextField
+import com.example.letssopt.component.WeightSpacer
+import com.example.letssopt.component.noRippleClickable
+import com.example.letssopt.login.LoginActivity
+import com.example.letssopt.ui.theme.LETSSOPTColors
 import com.example.letssopt.ui.theme.LETSSOPTTheme
+import com.example.letssopt.ui.theme.Typography
 
 
 class SignUpActivity : ComponentActivity() { // 회원가입 activity
@@ -75,7 +74,7 @@ fun Signup(modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
             .fillMaxSize()
-            .background(Color.Black)
+            .background(color = LETSSOPTColors.BackGround)
             .padding(horizontal = 15.dp)
             .imePadding() // 키보드 높이만큼 자동으로 패딩 추가!
     ) {
@@ -83,23 +82,19 @@ fun Signup(modifier: Modifier = Modifier) {
 
         Text(
             text = "watcha",
-            color = Color.Red,
-            fontSize = 40.sp,
+            modifier = Modifier.fillMaxWidth(),
+            color = LETSSOPTColors.Primary_Red,
             textAlign = TextAlign.Center,
-            fontFamily = FontFamily(Font(R.font.pretendard_bold)),
-            fontWeight = FontWeight.Bold,
-            modifier = Modifier
-                .fillMaxWidth()
+            style = Typography.logo
         )
 
         WeightSpacer(0.3f)
 
         Text(
             text = "회원가입",
-            fontFamily = FontFamily(Font(R.font.pretendard_bold)),
-            fontSize = 20.sp,
-            color = Color.White,
-            modifier = Modifier
+            modifier = Modifier.fillMaxWidth(),
+            style = Typography.h2,
+            color = LETSSOPTColors.White
         )
 
         WeightSpacer(0.2f)
@@ -107,17 +102,15 @@ fun Signup(modifier: Modifier = Modifier) {
         // 이메일 입력
         Text(
             text = "이메일",
-            fontFamily = FontFamily(Font(R.font.pretendard_regular)),
-            fontSize = 15.sp,
-            color = Color.Gray,
-            modifier = Modifier
+            modifier = Modifier.fillMaxWidth(),
+            style = Typography.caption,
+            color = LETSSOPTColors.Text_Secondary
         )
 
         CustomTextField(
             value = email,
             onValueChange = { email = it },
-            label = "이메일 주소를 입력하세요",
-            // 엔터키 입력시 다음 칸으로 이동
+            placeholder = "이메일 주소를 입력하세요",
             keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next)
         )
 
@@ -126,16 +119,15 @@ fun Signup(modifier: Modifier = Modifier) {
         // 비밀번호 입력
         Text(
             text = "비밀번호",
-            fontFamily = FontFamily(Font(R.font.pretendard_regular)),
-            fontSize = 15.sp,
-            color = Color.Gray,
-            modifier = Modifier
+            modifier = Modifier.fillMaxWidth(),
+            style = Typography.caption,
+            color = LETSSOPTColors.Text_Secondary
         )
 
         CustomTextField(
             value = pw,
             onValueChange = { pw = it },
-            label = "비밀번호를 입력하세요",
+            placeholder = "비밀번호를 입력하세요",
             keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next)
         )
 
@@ -144,16 +136,15 @@ fun Signup(modifier: Modifier = Modifier) {
         // 비밀번호 확인
         Text(
             text = "비밀번호 확인",
-            fontFamily = FontFamily(Font(R.font.pretendard_regular)),
-            fontSize = 15.sp,
-            color = Color.Gray,
-            modifier = Modifier
+            modifier = Modifier.fillMaxWidth(),
+            style = Typography.caption,
+            color = LETSSOPTColors.Text_Secondary
         )
 
         CustomTextField(
             value = pw2,
             onValueChange = { pw2 = it },
-            label = "비밀번호를 다시 입력하세요",
+            placeholder = "비밀번호를 다시 입력하세요",
             keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done)
             // 마지막 TextField는 엔터키 누르면 키보드 내려가도록!
         )
@@ -165,9 +156,9 @@ fun Signup(modifier: Modifier = Modifier) {
             modifier = Modifier
                 .fillMaxWidth()
                 .height(50.dp)
-                .background( if (isEnabled) Color.Red else Color.Gray,
+                .background( if (isEnabled) LETSSOPTColors.Primary_Red else LETSSOPTColors.Disabled,
                     RoundedCornerShape(8.dp))
-                .noRippleClickable (
+                .noRippleClickable(
                     enabled = isEnabled,
                     onClick = {
                         // 회원가입 조건 확인용 if문
@@ -190,9 +181,8 @@ fun Signup(modifier: Modifier = Modifier) {
         ) {
             Text(
                 "회원가입",
-                color = Color.White,
-                fontFamily = FontFamily(Font(R.font.pretendard_bold)),
-                fontSize = 17.sp
+                style = Typography.body4,
+                color = LETSSOPTColors.White,
             )
         }
 
