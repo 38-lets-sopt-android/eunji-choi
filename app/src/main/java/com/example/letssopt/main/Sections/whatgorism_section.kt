@@ -24,7 +24,6 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.letssopt.R
-import com.example.letssopt.main.ContentItemModel
 import com.example.letssopt.main.MainViewModel
 import kotlinx.collections.immutable.ImmutableList
 

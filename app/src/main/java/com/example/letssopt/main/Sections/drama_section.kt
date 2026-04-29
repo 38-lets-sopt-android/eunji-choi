@@ -3,6 +3,7 @@ package com.example.letssopt.main.Sections
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
@@ -19,8 +20,6 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.letssopt.R
-import com.example.letssopt.main.MainViewModel
-import kotlinx.collections.immutable.ImmutableList
 
 @Composable
 fun drama_section(
@@ -51,8 +50,9 @@ fun drama_section(
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
-                    .width(330.dp)
-                    .aspectRatio(16f / 9f)
+                    .size(200.dp)
+                    .width(150.dp)
+                    .aspectRatio(3f / 4f)
                     .padding(8.dp)
                     .clip(RoundedCornerShape(16.dp))
             )
