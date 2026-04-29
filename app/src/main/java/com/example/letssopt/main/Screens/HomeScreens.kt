@@ -31,6 +31,11 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import com.example.letssopt.R
 import com.example.letssopt.main.MainViewModel
+import com.example.letssopt.main.Sections.drama_section
+import com.example.letssopt.main.Sections.new_section
+import com.example.letssopt.main.Sections.party_section
+import com.example.letssopt.main.Sections.soon_section
+import com.example.letssopt.main.Sections.whatgorism_section
 
 // 각 탭 화면들 (함수 하나 = 화면 하나)
 @Composable
@@ -38,200 +43,21 @@ fun HomeScreen(
     viewModel: MainViewModel
 ) {
     LazyColumn {
-        item {
-            Spacer(modifier = Modifier.height(30.dp))
-        }
+        item {Spacer(modifier = Modifier.height(30.dp))}
 
-        item {
-            Text(
-                text = "방금 막 도착한 신상 컨텐츠!",
-                fontFamily = FontFamily(Font(R.font.pretendard_bold)),
-                fontSize = 20.sp,
-                color = Color.White
-            )
-        }
+        item{new_section(contents = viewModel.newList, onContentClick = {})}
 
-        item {
-            Text(
-                text = "예능부터 드라마까지!",
-                fontFamily = FontFamily(Font(R.font.pretendard_bold)),
-                fontSize = 15.sp,
-                color = Color.Gray
-            )
-        }
+        item {Spacer(modifier = Modifier.height(20.dp))}
 
-        item {
-            LazyRow {
-                items(viewModel.newList) { imageRes ->
-                    Image(
-                        painter = painterResource(id = imageRes),
-                        contentDescription = null,
-                        contentScale = ContentScale.Crop,
-                        modifier = Modifier
-                            .width(330.dp)
-                            .aspectRatio(16f / 9f)
-                            .padding(8.dp)
-                            .clip(RoundedCornerShape(16.dp))
-                    )
-                }
-            }
-        }
+        item {drama_section(contents = viewModel.newList, onContentClick = {})}
 
-        item {
-            Spacer(modifier = Modifier.height(20.dp))
-        }
+        item {Spacer(modifier = Modifier.height(20.dp))}
 
-        // 왓고리즘
-        item {
-            Column {
-                Image(
-                    painter = painterResource(id = R.drawable.img_logo_whatgorism),
-                    contentDescription = null
-                )
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Text(
-                        text = "예능부터 드라마까지!",
-                        fontFamily = FontFamily(Font(R.font.pretendard_bold)),
-                        fontSize = 20.sp,
-                        color = Color.Gray,
-                    )
-                    Text(
-                        text = "더보기",
-                        fontFamily = FontFamily(Font(R.font.pretendard_regular)),
-                        fontSize = 15.sp,
-                        color = Color.Gray,
-                    )
-                }
+        item {soon_section(contents = viewModel.soonList, onContentClick = {})}
 
-            }
-        }
+        item {Spacer(modifier = Modifier.height(20.dp))}
 
-
-        item {
-            LazyRow {
-                items(viewModel.dramaList) { imageRes ->
-                    Image(
-                        painter = painterResource(id = imageRes),
-                        contentDescription = null,
-                        contentScale = ContentScale.Crop,
-                        modifier = Modifier
-                            .width(150.dp)
-                            .aspectRatio(3f / 4f)
-                            .padding(8.dp)
-                            .clip(RoundedCornerShape(16.dp))
-                    )
-                }
-            }
-        }
-
-        item {
-            Spacer(modifier = Modifier.height(20.dp))
-        }
-
-        item {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text(
-                    text = "공개 예정 콘텐츠",
-                    fontFamily = FontFamily(Font(R.font.pretendard_bold)),
-                    fontSize = 20.sp,
-                    color = Color.White
-                )
-                Text(
-                    text = "더보기",
-                    fontFamily = FontFamily(Font(R.font.pretendard_regular)),
-                    fontSize = 15.sp,
-                    color = Color.Gray,
-                )
-            }
-        }
-
-        item {
-            LazyRow {
-                items(viewModel.soonList) { imageRes ->
-                    Image(
-                        painter = painterResource(id = imageRes),
-                        contentDescription = null,
-                        contentScale = ContentScale.Crop,
-                        modifier = Modifier
-                            .width(150.dp)
-                            .aspectRatio(3f / 4f)
-                            .padding(8.dp)
-                            .clip(RoundedCornerShape(16.dp))
-                    )
-                }
-            }
-        }
-
-        item {
-            Spacer(modifier = Modifier.height(20.dp))
-        }
-
-        item {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text(
-                    text = "왓챠 파티",
-                    fontFamily = FontFamily(Font(R.font.pretendard_bold)),
-                    fontSize = 20.sp,
-                    color = Color.White
-                )
-                Text(
-                    text = "더보기",
-                    fontFamily = FontFamily(Font(R.font.pretendard_regular)),
-                    fontSize = 15.sp,
-                    color = Color.Gray,
-                )
-            }
-        }
-
-        item {
-            LazyRow {
-                items(viewModel.partyList) { party ->
-                    Column(
-                        modifier = Modifier
-                            .width(200.dp)
-                            .padding(8.dp)
-                    ) {
-                        Image(
-                            painter = painterResource(id = party.imageRes),
-                            contentDescription = null,
-                            contentScale = ContentScale.Crop,
-                            modifier = Modifier
-                                .fillMaxSize()
-                                .aspectRatio(6f / 5f)
-                        )
-                        Column(
-                            modifier = Modifier
-                                .background(Color.Black)
-                                .fillMaxWidth()
-                                .padding(6.dp)
-                        ) {
-                            Text(
-                                text = party.time,
-                                fontSize = 10.sp,
-                                color = Color.Magenta
-                            )
-                            Text(
-                                text = party.title,
-                                fontSize = 12.sp,
-                                color = Color.White
-                            )
-                        }
-                    }
-                }
-            }
-        }
+        item {party_section(contents = viewModel.partyList, onContentClick = {})}
 
     }
 }
