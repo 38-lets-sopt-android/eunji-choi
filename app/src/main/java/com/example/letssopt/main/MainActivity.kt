@@ -78,12 +78,12 @@ fun Main(modifier: Modifier = Modifier, viewModel: MainViewModel = viewModel()) 
                 viewModel.bottomIcons.forEachIndexed { index, baricon ->
                     NavigationBarItem(
                         selected = selectedItem == index,
-                        onClick = { selectedItem = index },
+                        onClick = { selectedItem = index},
                         icon = {
                             Icon(
                                 imageVector = ImageVector.vectorResource(id = baricon.icon),
                                 contentDescription = null,
-                                tint = Color.Unspecified,
+                                tint = if (selectedItem == index) Color.White else Color.Gray
                             )
                         },
                         label = {
@@ -106,6 +106,7 @@ fun Main(modifier: Modifier = Modifier, viewModel: MainViewModel = viewModel()) 
                 2 -> WebtoonScreen()
                 3 -> SearchScreen()
                 4 -> StorageScreen()
+                else -> HomeScreen(viewModel = viewModel)
             }
 
 

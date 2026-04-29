@@ -87,6 +87,7 @@ fun LoginScreen(email: String, pw: String, modifier: Modifier = Modifier) {
 
     Column(
         modifier = modifier
+            .fillMaxSize()
             .background(Color.Black)
             .padding(horizontal = 16.dp)
             .imePadding() // 키보드 높이만큼 자동으로 패딩 추가!
@@ -208,6 +209,8 @@ fun LoginScreen(email: String, pw: String, modifier: Modifier = Modifier) {
 
                             val mainintent = Intent(context, MainActivity::class.java)
                             context.startActivity(mainintent)
+                            (context as? LoginActivity)?.finish()
+
                             Toast.makeText(context, "로그인에 성공했습니다", Toast.LENGTH_SHORT).show()
                         } else {
                             Toast.makeText(context, "로그인에 실패했습니다", Toast.LENGTH_SHORT).show()
