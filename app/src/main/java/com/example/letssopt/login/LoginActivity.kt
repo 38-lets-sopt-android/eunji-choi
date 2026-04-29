@@ -159,7 +159,6 @@ fun LoginScreen(email: String, pw: String, modifier: Modifier = Modifier) {
         ) {
             Text(
                 text = "아직 계정이 없으신가요?",
-                modifier = Modifier.fillMaxWidth(),
                 style = Typography.caption,
                 color = LETSSOPTColors.Text_Secondary
             )
