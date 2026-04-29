@@ -1,4 +1,4 @@
-package com.example.letssopt.main.Sections
+package com.example.letssopt.main.sections
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -25,6 +25,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.letssopt.R
 import com.example.letssopt.main.PartyItem
+import com.example.letssopt.ui.theme.LETSSOPTColors
+import com.example.letssopt.ui.theme.LETSSOPTTheme
+import com.example.letssopt.ui.theme.Typography
 
 @Composable
 fun Party_section(
@@ -34,8 +37,7 @@ fun Party_section(
 ) {
 
     Column(
-        modifier = modifier
-            .fillMaxSize()
+        modifier = modifier.fillMaxSize()
     ){
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -44,15 +46,13 @@ fun Party_section(
         ) {
             Text(
                 text = "왓챠 파티",
-                fontFamily = FontFamily(Font(R.font.pretendard_bold)),
-                fontSize = 20.sp,
-                color = Color.White
+                style = Typography.h3,
+                color = LETSSOPTColors.White
             )
             Text(
                 text = "더보기",
-                fontFamily = FontFamily(Font(R.font.pretendard_regular)),
-                fontSize = 15.sp,
-                color = Color.Gray,
+                style = Typography.caption2,
+                color = LETSSOPTColors.Text_Secondary
             )
         }
 
@@ -73,19 +73,19 @@ fun Party_section(
                     )
                     Column(
                         modifier = Modifier
-                            .background(Color.Black)
+                            .background(color = LETSSOPTColors.BackGround)
                             .fillMaxWidth()
                             .padding(6.dp)
                     ) {
                         Text(
                             text = party.time,
-                            fontSize = 10.sp,
-                            color = Color.Magenta
+                            style = Typography.body3,
+                            color = LETSSOPTColors.Primary_Red
                         )
                         Text(
                             text = party.title,
-                            fontSize = 12.sp,
-                            color = Color.White
+                            style = Typography.sh3,
+                            color = LETSSOPTColors.White
                         )
                     }
                 }

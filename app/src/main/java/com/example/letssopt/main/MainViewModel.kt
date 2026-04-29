@@ -33,11 +33,10 @@ class MainViewModel : ViewModel() {
     )
 
     val topIcons = listOf(
-        R.drawable.icon_video,
-        R.drawable.icon_bell,
-        R.drawable.icon_person
-    )
-
+        R.drawable.ic_top_bar_video,
+        R.drawable.ic_top_bar_bell,
+        R.drawable.ic_top_bar_profile,
+        )
 
     val bottomIcons = listOf(
         BottomBarItem("메인", R.drawable.ic_bottom_bar_main),

@@ -13,28 +13,33 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import com.example.letssopt.ui.theme.LETSSOPTTheme
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.letssopt.main.Screens.HomeScreen
-import com.example.letssopt.main.Screens.PurchaseScreen
-import com.example.letssopt.main.Screens.SearchScreen
-import com.example.letssopt.main.Screens.StorageScreen
-import com.example.letssopt.main.Screens.WebtoonScreen
+import androidx.navigation.compose.rememberNavController
+import com.example.letssopt.navigation.Home
+import com.example.letssopt.navigation.NavGraph
+import com.example.letssopt.navigation.Purchase
+import com.example.letssopt.navigation.Search
+import com.example.letssopt.navigation.Storage
+import com.example.letssopt.navigation.Webtoon
+import com.example.letssopt.ui.theme.LETSSOPTColors
+import com.example.letssopt.ui.theme.LETSSOPTTheme
 
 
 class MainActivity : ComponentActivity() {
@@ -53,20 +58,22 @@ class MainActivity : ComponentActivity() {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Main(modifier: Modifier = Modifier, viewModel: MainViewModel = viewModel()) {
-
+    val navController = rememberNavController()
     var selectedItem by remember { mutableStateOf(0) }
+
     Scaffold(
         topBar = {
             TopAppBar(
                 title = {},
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = LETSSOPTColors.BackGround
+                ),
                 actions = {
-                    viewModel.topIcons.forEach { iconRes ->
-                        Image(
-                            painter = painterResource(id = iconRes),
+                    viewModel.topIcons.forEach { topIcon ->
+                        Icon(
+                            imageVector = ImageVector.vectorResource(id = topIcon),
                             contentDescription = null,
-                            modifier = Modifier
-                                .size(30.dp)
-                                .padding(4.dp)
+                            modifier = Modifier.padding(horizontal = 7.dp)
                         )
                     }
                 }
@@ -74,20 +81,39 @@ fun Main(modifier: Modifier = Modifier, viewModel: MainViewModel = viewModel()) 
         },
 
         bottomBar = {
-            NavigationBar {
-                viewModel.bottomIcons.forEachIndexed { index, baricon ->
+            NavigationBar (
+                containerColor = LETSSOPTColors.BackGround
+            ){
+                viewModel.bottomIcons.forEachIndexed { index, barIcon ->
                     NavigationBarItem(
+                        colors = NavigationBarItemDefaults.colors(
+                            indicatorColor = Color.Transparent,
+                            selectedIconColor = LETSSOPTColors.White,
+                            unselectedIconColor = LETSSOPTColors.Disabled,
+                            selectedTextColor = LETSSOPTColors.White,
+                            unselectedTextColor = LETSSOPTColors.Disabled
+                        ),
                         selected = selectedItem == index,
-                        onClick = { selectedItem = index},
+                        onClick = {
+                            selectedItem = index
+                            when (index) {
+                                0 -> navController.navigate(Home)
+                                1 -> navController.navigate(Purchase)
+                                2 -> navController.navigate(Webtoon)
+                                3 -> navController.navigate(Search)
+                                4 -> navController.navigate(Storage)
+                            }
+                        },
                         icon = {
                             Icon(
-                                imageVector = ImageVector.vectorResource(id = baricon.icon),
-                                contentDescription = null,
-                                tint = if (selectedItem == index) Color.White else Color.Gray
+                                imageVector = ImageVector.vectorResource(id = barIcon.icon),
+                                contentDescription = null
                             )
                         },
                         label = {
-                            Text(text = baricon.label)
+                            Text(
+                                text = barIcon.label
+                            )
                         }
                     )
                 }
@@ -100,16 +126,7 @@ fun Main(modifier: Modifier = Modifier, viewModel: MainViewModel = viewModel()) 
                 .padding(innerPadding)
                 .padding(horizontal = 15.dp)
         ) {
-            when (selectedItem) {
-                0 -> HomeScreen(viewModel = viewModel)
-                1 -> PurchaseScreen()
-                2 -> WebtoonScreen()
-                3 -> SearchScreen()
-                4 -> StorageScreen()
-                else -> HomeScreen(viewModel = viewModel)
-            }
-
-
+            NavGraph(viewModel = viewModel, navController = navController)
         }
     }
 }

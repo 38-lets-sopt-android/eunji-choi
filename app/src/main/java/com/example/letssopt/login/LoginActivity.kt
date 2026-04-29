@@ -28,24 +28,20 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import com.example.letssopt.R
 import com.example.letssopt.signup.SignUpActivity
 import com.example.letssopt.component.CustomTextField
 import com.example.letssopt.component.WeightSpacer
 import com.example.letssopt.component.noRippleClickable
 import com.example.letssopt.main.MainActivity
+import com.example.letssopt.ui.theme.LETSSOPTColors
 import com.example.letssopt.ui.theme.LETSSOPTTheme
+import com.example.letssopt.ui.theme.Typography
 
 class LoginActivity : ComponentActivity() { //로그인 화면 activity
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,7 +50,7 @@ class LoginActivity : ComponentActivity() { //로그인 화면 activity
         val email = intent.getStringExtra("email")
         val pw = intent.getStringExtra("password")
 
-        val isLoggedIn = LoginSave.Companion.prefs.getBoolean("is_logged_in", false)
+        val isLoggedIn = LoginSave.prefs.getBoolean("is_logged_in", false)
         if (isLoggedIn) {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
@@ -85,10 +81,13 @@ fun LoginScreen(email: String, pw: String, modifier: Modifier = Modifier) {
     var emailinput by remember { mutableStateOf("") }
     var pwinput by remember { mutableStateOf("") }
 
+    val logincondition = emailinput.isNotEmpty() && pwinput.isNotEmpty() &&
+            emailinput == email && pwinput == pw
+
     Column(
         modifier = modifier
             .fillMaxSize()
-            .background(Color.Black)
+            .background(LETSSOPTColors.BackGround)
             .padding(horizontal = 16.dp)
             .imePadding() // 키보드 높이만큼 자동으로 패딩 추가!
     )
@@ -97,23 +96,19 @@ fun LoginScreen(email: String, pw: String, modifier: Modifier = Modifier) {
 
         Text(
             text = "watcha",
-            color = Color.Red,
-            fontSize = 40.sp,
             textAlign = TextAlign.Center,
-            fontFamily = FontFamily(Font(R.font.pretendard_bold)),
-            fontWeight = FontWeight.Bold,
-            modifier = Modifier
-                .fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+            style = Typography.logo,
+            color = LETSSOPTColors.Primary_Red
         )
 
         WeightSpacer(0.3f)
 
         Text(
             text = "이메일로 로그인",
-            fontFamily = FontFamily(Font(R.font.pretendard_bold)),
-            fontSize = 20.sp,
-            color = Color.White,
-            modifier = Modifier
+            modifier = Modifier.fillMaxWidth(),
+            style = Typography.h2,
+            color = LETSSOPTColors.White
         )
 
         WeightSpacer(0.2f)
@@ -121,10 +116,9 @@ fun LoginScreen(email: String, pw: String, modifier: Modifier = Modifier) {
         // 이메일 입력
         Text(
             text = "이메일",
-            fontFamily = FontFamily(Font(R.font.pretendard_regular)),
-            fontSize = 15.sp,
-            color = Color.Gray,
-            modifier = Modifier
+            modifier = Modifier.fillMaxWidth(),
+            style = Typography.caption,
+            color = LETSSOPTColors.Text_Secondary
         )
 
         CustomTextField(
@@ -139,10 +133,9 @@ fun LoginScreen(email: String, pw: String, modifier: Modifier = Modifier) {
         // 비밀번호 입력
         Text(
             text = "비밀번호",
-            fontFamily = FontFamily(Font(R.font.pretendard_regular)),
-            fontSize = 15.sp,
-            color = Color.Gray,
-            modifier = Modifier
+            modifier = Modifier.fillMaxWidth(),
+            style = Typography.caption,
+            color = LETSSOPTColors.Text_Secondary
         )
 
 
@@ -166,19 +159,16 @@ fun LoginScreen(email: String, pw: String, modifier: Modifier = Modifier) {
         ) {
             Text(
                 text = "아직 계정이 없으신가요?",
-                color = Color.Gray,
-                fontFamily = FontFamily(Font(R.font.pretendard_regular)),
-                fontSize = 15.sp,
-                modifier = Modifier
-                    .padding(7.dp)
+                modifier = Modifier.fillMaxWidth(),
+                style = Typography.caption,
+                color = LETSSOPTColors.Text_Secondary
             )
 
             // 회원가입 글자만 click 가능하게끔 '회원가입' text 생성!
             Text(
                 text = "회원가입",
-                color = Color.Gray,
-                fontFamily = FontFamily(Font(R.font.pretendard_regular)),
-                fontSize = 15.sp,
+                style = Typography.caption,
+                color = LETSSOPTColors.Text_Secondary,
                 modifier = Modifier
                     .padding(3.dp)
                     .clickable(
@@ -196,22 +186,21 @@ fun LoginScreen(email: String, pw: String, modifier: Modifier = Modifier) {
             modifier = Modifier
                 .fillMaxWidth()
                 .height(50.dp)
-                .background(Color.Red, RoundedCornerShape(8.dp))
+                .background(LETSSOPTColors.Primary_Red, RoundedCornerShape(8.dp))
                 .noRippleClickable(
                     enabled = true,
                     onClick = {
                         // email, pw가 같다는 조건 만족할 때만 'MainActivity'로 이동!
-                        if (emailinput.isNotEmpty() && pwinput.isNotEmpty() &&
-                            emailinput == email && pwinput == pw
-                        ) {
+                        if (logincondition) {
                             //로그인 여부 저장
-                            LoginSave.Companion.prefs.setBoolean("is_logged_in", true)
+                            LoginSave.prefs.setBoolean("is_logged_in", true)
 
                             val mainintent = Intent(context, MainActivity::class.java)
                             context.startActivity(mainintent)
-                            (context as? LoginActivity)?.finish()
 
                             Toast.makeText(context, "로그인에 성공했습니다", Toast.LENGTH_SHORT).show()
+
+                            (context as? LoginActivity)?.finish()
                         } else {
                             Toast.makeText(context, "로그인에 실패했습니다", Toast.LENGTH_SHORT).show()
                         }
@@ -220,9 +209,9 @@ fun LoginScreen(email: String, pw: String, modifier: Modifier = Modifier) {
             contentAlignment = Alignment.Center
         ) {
             Text(
-                "로그인", color = Color.White,
-                fontFamily = FontFamily(Font(R.font.pretendard_bold)),
-                fontSize = 17.sp
+                "로그인",
+                style = Typography.body4,
+                color = if (logincondition) LETSSOPTColors.placeholder else LETSSOPTColors.White,
             )
         }
 

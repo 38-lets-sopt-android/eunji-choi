@@ -30,7 +30,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -41,7 +40,9 @@ import com.example.letssopt.component.CustomTextField
 import com.example.letssopt.component.WeightSpacer
 import com.example.letssopt.component.noRippleClickable
 import com.example.letssopt.login.LoginActivity
+import com.example.letssopt.ui.theme.LETSSOPTColors
 import com.example.letssopt.ui.theme.LETSSOPTTheme
+import com.example.letssopt.ui.theme.Typography
 
 
 class SignUpActivity : ComponentActivity() { // 회원가입 activity
@@ -73,7 +74,7 @@ fun Signup(modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
             .fillMaxSize()
-            .background(Color.Black)
+            .background(color = LETSSOPTColors.BackGround)
             .padding(horizontal = 15.dp)
             .imePadding() // 키보드 높이만큼 자동으로 패딩 추가!
     ) {
@@ -81,23 +82,19 @@ fun Signup(modifier: Modifier = Modifier) {
 
         Text(
             text = "watcha",
-            color = Color.Red,
-            fontSize = 40.sp,
+            modifier = Modifier.fillMaxWidth(),
+            color = LETSSOPTColors.Primary_Red,
             textAlign = TextAlign.Center,
-            fontFamily = FontFamily(Font(R.font.pretendard_bold)),
-            fontWeight = FontWeight.Bold,
-            modifier = Modifier
-                .fillMaxWidth()
+            style = Typography.logo
         )
 
         WeightSpacer(0.3f)
 
         Text(
             text = "회원가입",
-            fontFamily = FontFamily(Font(R.font.pretendard_bold)),
-            fontSize = 20.sp,
-            color = Color.White,
-            modifier = Modifier
+            modifier = Modifier.fillMaxWidth(),
+            style = Typography.h2,
+            color = LETSSOPTColors.White
         )
 
         WeightSpacer(0.2f)
@@ -105,17 +102,15 @@ fun Signup(modifier: Modifier = Modifier) {
         // 이메일 입력
         Text(
             text = "이메일",
-            fontFamily = FontFamily(Font(R.font.pretendard_regular)),
-            fontSize = 15.sp,
-            color = Color.Gray,
-            modifier = Modifier
+            modifier = Modifier.fillMaxWidth(),
+            style = Typography.caption,
+            color = LETSSOPTColors.Text_Secondary
         )
 
         CustomTextField(
             value = email,
             onValueChange = { email = it },
             placeholder = "이메일 주소를 입력하세요",
-            // 엔터키 입력시 다음 칸으로 이동
             keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next)
         )
 
@@ -124,10 +119,9 @@ fun Signup(modifier: Modifier = Modifier) {
         // 비밀번호 입력
         Text(
             text = "비밀번호",
-            fontFamily = FontFamily(Font(R.font.pretendard_regular)),
-            fontSize = 15.sp,
-            color = Color.Gray,
-            modifier = Modifier
+            modifier = Modifier.fillMaxWidth(),
+            style = Typography.caption,
+            color = LETSSOPTColors.Text_Secondary
         )
 
         CustomTextField(
@@ -142,10 +136,9 @@ fun Signup(modifier: Modifier = Modifier) {
         // 비밀번호 확인
         Text(
             text = "비밀번호 확인",
-            fontFamily = FontFamily(Font(R.font.pretendard_regular)),
-            fontSize = 15.sp,
-            color = Color.Gray,
-            modifier = Modifier
+            modifier = Modifier.fillMaxWidth(),
+            style = Typography.caption,
+            color = LETSSOPTColors.Text_Secondary
         )
 
         CustomTextField(
@@ -163,7 +156,7 @@ fun Signup(modifier: Modifier = Modifier) {
             modifier = Modifier
                 .fillMaxWidth()
                 .height(50.dp)
-                .background( if (isEnabled) Color.Red else Color.Gray,
+                .background( if (isEnabled) LETSSOPTColors.Primary_Red else LETSSOPTColors.Disabled,
                     RoundedCornerShape(8.dp))
                 .noRippleClickable(
                     enabled = isEnabled,
@@ -188,9 +181,8 @@ fun Signup(modifier: Modifier = Modifier) {
         ) {
             Text(
                 "회원가입",
-                color = Color.White,
-                fontFamily = FontFamily(Font(R.font.pretendard_bold)),
-                fontSize = 17.sp
+                style = Typography.body4,
+                color = LETSSOPTColors.White,
             )
         }
 

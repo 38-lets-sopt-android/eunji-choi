@@ -18,6 +18,10 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.letssopt.R
+import com.example.letssopt.ui.theme.LETSSOPTColors
+import com.example.letssopt.ui.theme.LETSSOPTTheme
+import com.example.letssopt.ui.theme.LETSSOPTTypography
+import com.example.letssopt.ui.theme.Typography
 
 
 @Composable // Spacer(modifier.weight(1f) 커스텀
@@ -39,21 +43,20 @@ fun CustomTextField(
         onValueChange = onValueChange,
         shape = RoundedCornerShape(16.dp),
         colors = TextFieldDefaults.colors(
-            focusedContainerColor = Color.DarkGray,
-            unfocusedContainerColor = Color.DarkGray,
+            focusedContainerColor = LETSSOPTColors.Surface,
+            unfocusedContainerColor = LETSSOPTColors.Surface,
             focusedIndicatorColor = Color.Transparent,
-            unfocusedIndicatorColor = Color.Transparent
+            unfocusedIndicatorColor = Color.Transparent,
+            unfocusedPlaceholderColor = LETSSOPTColors.placeholder,
+            focusedPlaceholderColor = LETSSOPTColors.placeholder
         ),
-        textStyle = TextStyle(color = Color.LightGray),
         singleLine = true, // 텍스트 입력 2줄 방지
         keyboardOptions = keyboardOptions,
         visualTransformation = visualTransformation,
         placeholder = {
             Text(
                 text = placeholder,
-                fontFamily = FontFamily(Font(R.font.pretendard_regular)),
-                fontSize = 15.sp,
-                color = Color.LightGray
+                style = Typography.caption
             )
         },
         modifier = modifier

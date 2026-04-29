@@ -8,10 +8,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.letssopt.main.MainViewModel
-import com.example.letssopt.main.Sections.New_section
-import com.example.letssopt.main.Sections.Party_section
-import com.example.letssopt.main.Sections.Soon_section
-import com.example.letssopt.main.Sections.Drama_section
+import com.example.letssopt.main.sections.New_section
+import com.example.letssopt.main.sections.Party_section
+import com.example.letssopt.main.sections.Soon_section
+import com.example.letssopt.main.sections.Drama_section
 
 // 각 탭 화면들 (함수 하나 = 화면 하나)
 @Composable
