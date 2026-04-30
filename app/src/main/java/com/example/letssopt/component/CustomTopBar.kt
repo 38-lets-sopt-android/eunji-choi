@@ -1,5 +1,9 @@
 package com.example.letssopt.component
 
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -17,9 +21,11 @@ import com.example.letssopt.ui.theme.LETSSOPTColors
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CustomTopBar(
-    modifier: Modifier = Modifier, viewModel: HomeViewModel = viewModel()
+    modifier: Modifier = Modifier,
+    viewModel: HomeViewModel = viewModel()
 ) {
     TopAppBar(
+        modifier = modifier,
         title = {},
         colors = TopAppBarDefaults.topAppBarColors(
             containerColor = LETSSOPTColors.BackGround

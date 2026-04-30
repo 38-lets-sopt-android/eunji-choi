@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -43,7 +44,6 @@ import com.example.letssopt.ui.theme.LETSSOPTTheme
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContent {
             LETSSOPTTheme {
                 val autoViewModel: AutoViewModel = viewModel()
@@ -60,9 +60,8 @@ class MainActivity : ComponentActivity() {
                 Scaffold(
                     modifier = Modifier
                         .fillMaxSize(),
-
                     topBar = { if (isInHome) CustomTopBar() },
-                    bottomBar = { if (isInHome) CustomBottomBar() }
+                    bottomBar = { if (isInHome) CustomBottomBar(navController = navController) }
                 ) { innerPadding ->
                     NavHost(
                         modifier = Modifier.padding(innerPadding),
@@ -119,7 +118,7 @@ class MainActivity : ComponentActivity() {
                         }
 
                         navigation<HomeGraph>(startDestination = Home) {
-                            composable<Home> { HomeScreen() }
+                            composable<Home> { HomeScreen(modifier = Modifier) }
                             composable<Purchase> { PurchaseScreen() }
                             composable<Webtoon> { WebtoonScreen() }
                             composable<Search> { SearchScreen() }

@@ -1,6 +1,7 @@
 package com.example.letssopt.Home.screens
 
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -21,7 +22,8 @@ fun HomeScreen(
 ) {
 
     LazyColumn (
-        modifier = modifier.fillMaxSize()
+        modifier = modifier
+            .fillMaxSize()
     ){
         item {HeightSpacer(30.dp)}
 

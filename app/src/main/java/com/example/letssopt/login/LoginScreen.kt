@@ -189,9 +189,9 @@ fun LoginScreen(
 @Composable
 private fun LoginPreview() {
     LETSSOPTTheme {
-        LoginScreen(
-            navigateToHome = {},
-            navigateToSignUp = {}
-        )
+//        LoginScreen(
+//            navigateToHome = {},
+//            navigateToSignUp = {}
+//        )
     }
 }

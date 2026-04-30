@@ -1,5 +1,7 @@
 package com.example.letssopt.component
 
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -14,7 +16,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.letssopt.navigation.Home
 import com.example.letssopt.navigation.Purchase
@@ -28,11 +32,11 @@ import com.example.letssopt.ui.theme.LETSSOPTColors
 fun CustomBottomBar (
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = viewModel(),
-
+    navController: NavController
     ){
     var selectedItem by remember { mutableStateOf(0) }
-    val navController = rememberNavController()
     NavigationBar (
+        modifier = modifier,
         containerColor = LETSSOPTColors.BackGround
     ) {
         viewModel.bottomIcons.forEachIndexed { index, barIcon ->

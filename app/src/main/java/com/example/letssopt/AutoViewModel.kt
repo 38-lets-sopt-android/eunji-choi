@@ -3,6 +3,7 @@ package com.example.letssopt
 import android.util.Patterns
 import androidx.lifecycle.ViewModel
 import com.example.letssopt.navigation.Home
+import com.example.letssopt.navigation.HomeGraph
 import com.example.letssopt.navigation.Login
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -42,5 +43,5 @@ class AutoViewModel : ViewModel() {
         return logincondition
     }
 
-    val startDestination = if (saveinfo.prefs.getBoolean("is_logged_in", false)) Home else Login
+    val startDestination = if (saveinfo.prefs.getBoolean("is_logged_in", false)) HomeGraph else Login
 }
