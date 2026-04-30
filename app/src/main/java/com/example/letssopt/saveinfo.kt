@@ -13,6 +13,4 @@ class saveinfo : Application() {
         prefs = PreferenceUtil(applicationContext)
         super.onCreate()
     }
-
-
 }

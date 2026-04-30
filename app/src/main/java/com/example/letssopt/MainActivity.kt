@@ -3,7 +3,6 @@ package com.example.letssopt
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
@@ -12,7 +11,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavController
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -22,11 +20,11 @@ import androidx.navigation.navigation
 import com.example.letssopt.component.CustomBottomBar
 import com.example.letssopt.component.CustomTopBar
 import com.example.letssopt.login.LoginScreen
-import com.example.letssopt.Home.screens.HomeScreen
-import com.example.letssopt.Home.screens.PurchaseScreen
-import com.example.letssopt.Home.screens.SearchScreen
-import com.example.letssopt.Home.screens.StorageScreen
-import com.example.letssopt.Home.screens.WebtoonScreen
+import com.example.letssopt.home.screens.HomeScreen
+import com.example.letssopt.home.screens.PurchaseScreen
+import com.example.letssopt.home.screens.SearchScreen
+import com.example.letssopt.home.screens.StorageScreen
+import com.example.letssopt.home.screens.WebtoonScreen
 import com.example.letssopt.navigation.Home
 import com.example.letssopt.navigation.HomeGraph
 import com.example.letssopt.navigation.Login
@@ -35,7 +33,6 @@ import com.example.letssopt.navigation.Search
 import com.example.letssopt.navigation.SignUp
 import com.example.letssopt.navigation.Storage
 import com.example.letssopt.navigation.Webtoon
-import com.example.letssopt.AutoViewModel
 import com.example.letssopt.signup.SignUpScreen
 import com.example.letssopt.ui.theme.LETSSOPTTheme
 

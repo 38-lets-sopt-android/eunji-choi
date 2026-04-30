@@ -10,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.letssopt.ui.theme.LETSSOPTColors
 import com.example.letssopt.ui.theme.Typography
@@ -46,5 +47,15 @@ fun CustomTextField(
         },
         modifier = modifier
             .fillMaxWidth()
+    )
+}
+
+@Preview
+@Composable
+private fun CustomTextFieldPreview() {
+    CustomTextField(
+        value = "테스트",
+        onValueChange = {},
+        placeholder = "입력하세요"
     )
 }

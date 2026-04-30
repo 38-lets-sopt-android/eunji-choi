@@ -1,4 +1,4 @@
-package com.example.letssopt.Home.sections
+package com.example.letssopt.home.sections
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -12,47 +12,35 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
-import com.example.letssopt.R
 import com.example.letssopt.ui.theme.LETSSOPTColors
 import com.example.letssopt.ui.theme.Typography
 
 @Composable
-fun Drama_section(
+fun Soon_section(
     contents: List<Int>,
-    onContentClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
         modifier = modifier
             .fillMaxSize()
     ){
-        Icon(
-            imageVector = ImageVector.vectorResource(R.drawable.ic_main_whatgorism),
-            contentDescription = null,
-            tint = Color.Unspecified,
-        )
-
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                text = "예능부터 드라마까지!",
+                text = "공개 예정 콘텐츠",
                 style = Typography.h3,
-                color = LETSSOPTColors.Text_Secondary
+                color = LETSSOPTColors.White
             )
             Text(
                 text = "더보기",

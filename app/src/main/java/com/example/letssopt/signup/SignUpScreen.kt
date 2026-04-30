@@ -163,9 +163,9 @@ fun SignUpScreen(
 @Composable
 private fun SignupPreview() {
     LETSSOPTTheme {
-//        SignUpScreen(
-//            viewModel = AutoViewModel(),
-//            navigateToLogin = {}
-//        )
+        SignUpScreen(
+            viewModel = remember { AutoViewModel() },
+            navigateToLogin = {}
+        )
     }
 }
