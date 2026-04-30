@@ -48,13 +48,8 @@ fun LoginScreen(
 
     val context = LocalContext.current
 
-    val email by viewModel.email.collectAsState()
-    val password by viewModel.password.collectAsState()
-
     var emailinput by remember { mutableStateOf("") }
     var pwinput by remember { mutableStateOf("") }
-
-
 
     Column(
         modifier = modifier

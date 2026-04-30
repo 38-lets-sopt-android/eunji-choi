@@ -2,6 +2,11 @@ package com.example.letssopt.Home
 
 import androidx.lifecycle.ViewModel
 import com.example.letssopt.R
+import com.example.letssopt.navigation.Home
+import com.example.letssopt.navigation.Purchase
+import com.example.letssopt.navigation.Search
+import com.example.letssopt.navigation.Storage
+import com.example.letssopt.navigation.Webtoon
 
 class HomeViewModel : ViewModel() {
 
@@ -39,10 +44,10 @@ class HomeViewModel : ViewModel() {
         )
 
     val bottomIcons = listOf(
-        BottomBarItem("메인", R.drawable.ic_bottom_bar_main),
-        BottomBarItem("개별 구매", R.drawable.ic_bottom_bar_category),
-        BottomBarItem("웹툰", R.drawable.ic_bottom_bar_folder),
-        BottomBarItem("찾기", R.drawable.ic_bottom_bar_search),
-        BottomBarItem("보관함", R.drawable.ic_bottom_bar_wallet),
+        BottomBarItem("메인", R.drawable.ic_bottom_bar_main, Home),
+        BottomBarItem("개별 구매", R.drawable.ic_bottom_bar_purchase, Purchase),
+        BottomBarItem("웹툰", R.drawable.ic_bottom_bar_webtoon, Webtoon),
+        BottomBarItem("찾기", R.drawable.ic_bottom_bar_search, Search),
+        BottomBarItem("보관함", R.drawable.ic_bottom_bar_storage, Storage),
     )
 }

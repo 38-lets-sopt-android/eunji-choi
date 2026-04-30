@@ -19,6 +19,7 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.letssopt.navigation.Home
 import com.example.letssopt.navigation.Purchase
@@ -26,6 +27,7 @@ import com.example.letssopt.navigation.Search
 import com.example.letssopt.navigation.Storage
 import com.example.letssopt.navigation.Webtoon
 import com.example.letssopt.Home.HomeViewModel
+import com.example.letssopt.navigation.HomeGraph
 import com.example.letssopt.ui.theme.LETSSOPTColors
 
 @Composable
@@ -34,12 +36,16 @@ fun CustomBottomBar (
     viewModel: HomeViewModel = viewModel(),
     navController: NavController
     ){
-    var selectedItem by remember { mutableStateOf(0) }
     NavigationBar (
         modifier = modifier,
         containerColor = LETSSOPTColors.BackGround
     ) {
+        val currentDestination = navController.currentBackStackEntryAsState().value?.destination
+
         viewModel.bottomIcons.forEachIndexed { index, barIcon ->
+
+            val selected = currentDestination?.route == barIcon.destination::class.qualifiedName
+
             NavigationBarItem(
                 colors = NavigationBarItemDefaults.colors(
                     indicatorColor = Color.Transparent,
@@ -48,15 +54,21 @@ fun CustomBottomBar (
                     selectedTextColor = LETSSOPTColors.White,
                     unselectedTextColor = LETSSOPTColors.Disabled
                 ),
-                selected = selectedItem == index,
+                selected = selected,
                 onClick = {
-                    selectedItem = index
-                    when (index) {
-                        0 -> navController.navigate(Home)
-                        1 -> navController.navigate(Purchase)
-                        2 -> navController.navigate(Webtoon)
-                        3 -> navController.navigate(Search)
-                        4 -> navController.navigate(Storage)
+                    val destination = when (index) {
+                        0 -> Home
+                        1 -> Purchase
+                        2 -> Webtoon
+                        3 -> Search
+                        4 -> Storage
+                        else -> Home
+                    }
+                    navController.navigate(destination) {
+                        // 한 번 뒤로가기 누르면 HomeScreen으로 이동
+                        popUpTo<Home> { inclusive = false }
+                        // 한 번 더 누르면 앱 밖으로!
+                        launchSingleTop = true
                     }
                 },
                 icon = {

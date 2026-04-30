@@ -12,5 +12,6 @@ data class PartyItem(
 @Immutable
 data class BottomBarItem(
     val label: String,
-    val icon: Int
+    val icon: Int,
+    val destination: Any
 )
