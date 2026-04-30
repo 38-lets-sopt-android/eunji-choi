@@ -3,6 +3,7 @@ package com.example.letssopt.component
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Text
@@ -15,6 +16,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.letssopt.R
@@ -24,9 +26,14 @@ import com.example.letssopt.ui.theme.LETSSOPTTypography
 import com.example.letssopt.ui.theme.Typography
 
 
-@Composable // Spacer(modifier.weight(1f) 커스텀
+@Composable // Spacer(modifier.weight(f) 커스텀
 fun ColumnScope.WeightSpacer(weight: Float, modifier: Modifier = Modifier) {
     Spacer(modifier = modifier.weight(weight))
+}
+
+@Composable // Spacer(modifier.height(dp) 커스텀
+fun HeightSpacer(dp: Dp, modifier: Modifier = Modifier) {
+    Spacer(modifier = modifier.height(dp))
 }
 
 @Composable

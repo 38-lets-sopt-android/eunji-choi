@@ -1,11 +1,7 @@
 package com.example.letssopt.login
 
 import android.content.Intent
-import android.os.Bundle
 import android.widget.Toast
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -19,9 +15,9 @@ import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -34,55 +30,33 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.letssopt.signup.SignUpActivity
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.letssopt.component.CustomTextField
 import com.example.letssopt.component.WeightSpacer
 import com.example.letssopt.component.noRippleClickable
-import com.example.letssopt.main.MainActivity
+import com.example.letssopt.signup.SignUpViewModel
 import com.example.letssopt.ui.theme.LETSSOPTColors
 import com.example.letssopt.ui.theme.LETSSOPTTheme
 import com.example.letssopt.ui.theme.Typography
+import kotlinx.serialization.Serializable
 
-class LoginActivity : ComponentActivity() { //로그인 화면 activity
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        val email = intent.getStringExtra("email")
-        val pw = intent.getStringExtra("password")
-
-        val isLoggedIn = LoginSave.prefs.getBoolean("is_logged_in", false)
-        if (isLoggedIn) {
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-            finish() // 뒤로가기 시 LoginActivity로 안 돌아오게끔
-            return
-        }
-
-        enableEdgeToEdge()
-        setContent {
-            LETSSOPTTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    LoginScreen(
-                        // 처음 앱 실행하고 로그인 버튼 클릭 시 바로 창 넘어가는 오류 해결하려고 임의값 부여
-                        email = email ?: "",
-                        pw = pw ?: "",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
-            }
-        }
-    }
-}
 
 @Composable
-fun LoginScreen(email: String, pw: String, modifier: Modifier = Modifier) {
+fun LoginScreen(
+    navigateToHome: () -> Unit,   // 로그인 성공하면 이거 호출
+    navigateToSignUp: () -> Unit,  // 회원가입 누르면 이거 호출
+    modifier: Modifier = Modifier,
+    viewModel: SignUpViewModel = viewModel()) {
+
     val context = LocalContext.current
+
+    val email by viewModel.email.collectAsState()
+    val password by viewModel.password.collectAsState()
 
     var emailinput by remember { mutableStateOf("") }
     var pwinput by remember { mutableStateOf("") }
 
-    val logincondition = emailinput.isNotEmpty() && pwinput.isNotEmpty() &&
-            emailinput == email && pwinput == pw
+
 
     Column(
         modifier = modifier
@@ -171,16 +145,15 @@ fun LoginScreen(email: String, pw: String, modifier: Modifier = Modifier) {
                 modifier = Modifier
                     .padding(3.dp)
                     .clickable(
-                        onClick = {
-                            val intent = Intent(context, SignUpActivity::class.java)
-                            context.startActivity(intent)
-                        }
+                        onClick = {navigateToSignUp()}
                     )
             )
         }
 
         WeightSpacer(0.05f)
 
+        val logincondition = emailinput.isNotEmpty() && pwinput.isNotEmpty() &&
+                emailinput == email && pwinput == password
         Box(
             modifier = Modifier
                 .fillMaxWidth()
@@ -193,13 +166,11 @@ fun LoginScreen(email: String, pw: String, modifier: Modifier = Modifier) {
                         if (logincondition) {
                             //로그인 여부 저장
                             LoginSave.prefs.setBoolean("is_logged_in", true)
-
-                            val mainintent = Intent(context, MainActivity::class.java)
-                            context.startActivity(mainintent)
+                            navigateToHome()
 
                             Toast.makeText(context, "로그인에 성공했습니다", Toast.LENGTH_SHORT).show()
 
-                            (context as? LoginActivity)?.finish()
+//                            (context as? LoginActivity)?.finish()
                         } else {
                             Toast.makeText(context, "로그인에 실패했습니다", Toast.LENGTH_SHORT).show()
                         }
@@ -224,6 +195,9 @@ fun LoginScreen(email: String, pw: String, modifier: Modifier = Modifier) {
 @Composable
 private fun LoginPreview() {
     LETSSOPTTheme {
-        LoginScreen("email", "pw")
+        LoginScreen(
+            navigateToHome = {},
+            navigateToSignUp = {}
+        )
     }
 }

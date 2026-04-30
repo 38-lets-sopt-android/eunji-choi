@@ -3,7 +3,7 @@ package com.example.letssopt.main
 import androidx.lifecycle.ViewModel
 import com.example.letssopt.R
 
-class MainViewModel : ViewModel() {
+class HomeViewModel : ViewModel() {
 
     val newList = listOf(
         R.drawable.img_new_rilakkuma_pink,
