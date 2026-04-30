@@ -1,4 +1,4 @@
-package com.example.letssopt.main
+package com.example.letssopt.Home
 
 import androidx.lifecycle.ViewModel
 import com.example.letssopt.R

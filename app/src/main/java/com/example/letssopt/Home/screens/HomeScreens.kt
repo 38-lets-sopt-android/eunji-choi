@@ -1,4 +1,4 @@
-package com.example.letssopt.main.screens
+package com.example.letssopt.Home.screens
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
@@ -7,11 +7,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.letssopt.component.HeightSpacer
-import com.example.letssopt.main.HomeViewModel
-import com.example.letssopt.main.sections.New_section
-import com.example.letssopt.main.sections.Party_section
-import com.example.letssopt.main.sections.Soon_section
-import com.example.letssopt.main.sections.Drama_section
+import com.example.letssopt.Home.HomeViewModel
+import com.example.letssopt.Home.sections.New_section
+import com.example.letssopt.Home.sections.Party_section
+import com.example.letssopt.Home.sections.Soon_section
+import com.example.letssopt.Home.sections.Drama_section
 
 // 각 탭 화면들 (함수 하나 = 화면 하나)
 @Composable

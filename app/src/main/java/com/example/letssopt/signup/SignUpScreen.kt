@@ -1,6 +1,5 @@
 package com.example.letssopt.signup
 
-import android.util.Patterns
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -19,6 +18,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -30,14 +30,16 @@ import com.example.letssopt.component.noRippleClickable
 import com.example.letssopt.ui.theme.LETSSOPTColors
 import com.example.letssopt.ui.theme.LETSSOPTTheme
 import com.example.letssopt.ui.theme.Typography
-
+import android.widget.Toast
+import com.example.letssopt.AutoViewModel
 
 @Composable
 fun SignUpScreen(
     navigateToLogin: () -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: SignUpViewModel = viewModel() ) {
-//    val context = LocalContext.current
+    viewModel: AutoViewModel
+) {
+    val context = LocalContext.current
 
     var pw by remember { mutableStateOf("") }
     var pw2 by remember { mutableStateOf("") }
@@ -133,21 +135,12 @@ fun SignUpScreen(
                 .noRippleClickable(
                     enabled = isEnabled,
                     onClick = {
-                        // 회원가입 조건 확인용 if문
-                        // 조건 : email 형식, pw 길이 8~12자, 비밀번호 == 비밀번호 확인
-                        if (Patterns.EMAIL_ADDRESS.matcher(email)
-                                .matches() && pw.length >= 8 && pw.length < 12 && pw == pw2)
+                        if (viewModel.signCheck(email, pw, pw2))
                         {
-                            viewModel.save_id_pw(email, pw)
+                            Toast.makeText(context, "회원가입에 성공했습니다", Toast.LENGTH_SHORT).show()
                             navigateToLogin()
-//                            val intent = Intent(context, LoginActivity::class.java)
-//                            // putExtra로 email, password 전달
-//                            intent.putExtra("email", email)
-//                            intent.putExtra("password", pw)
-//                            context.startActivity(intent)
-//                            Toast.makeText(context, "회원가입에 성공했습니다", Toast.LENGTH_SHORT).show()
                         } else {
-//                            Toast.makeText(context, "회원가입에 실패했습니다", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(context, "회원가입에 실패했습니다", Toast.LENGTH_SHORT).show()
                         }
                     }
                 ),
@@ -170,8 +163,9 @@ fun SignUpScreen(
 @Composable
 private fun SignupPreview() {
     LETSSOPTTheme {
-        SignUpScreen(
-            navigateToLogin = {}
-        )
+//        SignUpScreen(
+//            viewModel = AutoViewModel(),
+//            navigateToLogin = {}
+//        )
     }
 }

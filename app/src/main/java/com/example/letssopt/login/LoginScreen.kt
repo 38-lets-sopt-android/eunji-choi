@@ -1,6 +1,5 @@
 package com.example.letssopt.login
 
-import android.content.Intent
 import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -34,11 +33,10 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.letssopt.component.CustomTextField
 import com.example.letssopt.component.WeightSpacer
 import com.example.letssopt.component.noRippleClickable
-import com.example.letssopt.signup.SignUpViewModel
+import com.example.letssopt.AutoViewModel
 import com.example.letssopt.ui.theme.LETSSOPTColors
 import com.example.letssopt.ui.theme.LETSSOPTTheme
 import com.example.letssopt.ui.theme.Typography
-import kotlinx.serialization.Serializable
 
 
 @Composable
@@ -46,7 +44,7 @@ fun LoginScreen(
     navigateToHome: () -> Unit,   // 로그인 성공하면 이거 호출
     navigateToSignUp: () -> Unit,  // 회원가입 누르면 이거 호출
     modifier: Modifier = Modifier,
-    viewModel: SignUpViewModel = viewModel()) {
+    viewModel: AutoViewModel ) {
 
     val context = LocalContext.current
 
@@ -152,8 +150,7 @@ fun LoginScreen(
 
         WeightSpacer(0.05f)
 
-        val logincondition = emailinput.isNotEmpty() && pwinput.isNotEmpty() &&
-                emailinput == email && pwinput == password
+
         Box(
             modifier = Modifier
                 .fillMaxWidth()
@@ -162,15 +159,10 @@ fun LoginScreen(
                 .noRippleClickable(
                     enabled = true,
                     onClick = {
-                        // email, pw가 같다는 조건 만족할 때만 'MainActivity'로 이동!
-                        if (logincondition) {
-                            //로그인 여부 저장
-                            LoginSave.prefs.setBoolean("is_logged_in", true)
-                            navigateToHome()
-
+                        // email, pw가 같다는 조건 만족할 때만 'HomeScreen'로 이동!
+                        if (viewModel.loginCheck(emailinput, pwinput)) {
                             Toast.makeText(context, "로그인에 성공했습니다", Toast.LENGTH_SHORT).show()
-
-//                            (context as? LoginActivity)?.finish()
+                            navigateToHome()
                         } else {
                             Toast.makeText(context, "로그인에 실패했습니다", Toast.LENGTH_SHORT).show()
                         }
@@ -181,7 +173,9 @@ fun LoginScreen(
             Text(
                 "로그인",
                 style = Typography.body4,
-                color = if (logincondition) LETSSOPTColors.placeholder else LETSSOPTColors.White,
+                color = if (viewModel.loginCheck(emailinput, pwinput))
+                        LETSSOPTColors.placeholder
+                        else LETSSOPTColors.White,
             )
         }
 

@@ -1,4 +1,4 @@
-package com.example.letssopt.main
+package com.example.letssopt.Home
 
 import androidx.compose.runtime.Immutable
 

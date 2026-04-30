@@ -1,4 +1,4 @@
-package com.example.letssopt.main.screens
+package com.example.letssopt.Home.screens
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize

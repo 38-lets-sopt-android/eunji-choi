@@ -1,4 +1,4 @@
-package com.example.letssopt.main.sections
+package com.example.letssopt.Home.sections
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement

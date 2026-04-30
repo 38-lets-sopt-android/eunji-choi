@@ -1,4 +1,4 @@
-package com.example.letssopt
+package com.example.letssopt.component
 
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
@@ -16,7 +16,12 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.rememberNavController
-import com.example.letssopt.main.HomeViewModel
+import com.example.letssopt.navigation.Home
+import com.example.letssopt.navigation.Purchase
+import com.example.letssopt.navigation.Search
+import com.example.letssopt.navigation.Storage
+import com.example.letssopt.navigation.Webtoon
+import com.example.letssopt.Home.HomeViewModel
 import com.example.letssopt.ui.theme.LETSSOPTColors
 
 @Composable

@@ -1,9 +1,8 @@
-package com.example.letssopt.login
+package com.example.letssopt
 
 import android.app.Application
-import com.example.letssopt.signup.PreferenceUtil
 
-class LoginSave : Application() {
+class saveinfo : Application() {
 
     companion object {
         lateinit var prefs: PreferenceUtil

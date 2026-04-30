@@ -1,4 +1,4 @@
-package com.example.letssopt.signup
+package com.example.letssopt
 
 import android.content.Context
 import android.content.SharedPreferences
