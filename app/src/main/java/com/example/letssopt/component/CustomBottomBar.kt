@@ -35,7 +35,7 @@ fun CustomBottomBar (
     ) {
         val currentDestination = navController.currentBackStackEntryAsState().value?.destination
 
-        viewModel.bottomIcons.forEachIndexed { index, barIcon ->
+        viewModel.getbottomIcons().forEachIndexed { index, barIcon ->
 
             val selected = currentDestination?.route == barIcon.destination::class.qualifiedName
 

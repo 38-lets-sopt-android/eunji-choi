@@ -27,19 +27,19 @@ fun HomeScreen(
     ){
         item {HeightSpacer(30.dp)}
 
-        item{New_section(contents = viewModel.newList)}
+        item{New_section(contents = viewModel.getnewList())}
 
         item {HeightSpacer(20.dp)}
 
-        item {Drama_section(contents = viewModel.dramaList)}
+        item {Drama_section(contents = viewModel.getdramaList())}
 
         item {HeightSpacer(20.dp)}
 
-        item {Soon_section(contents = viewModel.soonList)}
+        item {Soon_section(contents = viewModel.getsoonList())}
 
         item {HeightSpacer(20.dp)}
 
-        item {Party_section(contents = viewModel.partyList)}
+        item {Party_section(contents = viewModel.getpartyList())}
 
     }
 }

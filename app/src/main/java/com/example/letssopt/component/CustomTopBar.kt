@@ -28,7 +28,7 @@ fun CustomTopBar(
             containerColor = LETSSOPTColors.BackGround
         ),
         actions = {
-            viewModel.topIcons.forEach { topIcon ->
+            viewModel.gettopIcons().forEach { topIcon ->
                 Icon(
                     imageVector = ImageVector.vectorResource(id = topIcon),
                     contentDescription = null,
