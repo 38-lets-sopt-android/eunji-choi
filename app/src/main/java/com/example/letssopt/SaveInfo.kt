@@ -2,7 +2,7 @@ package com.example.letssopt
 
 import android.app.Application
 
-class saveinfo : Application() {
+class SaveInfo : Application() {
 
     companion object {
         lateinit var prefs: PreferenceUtil

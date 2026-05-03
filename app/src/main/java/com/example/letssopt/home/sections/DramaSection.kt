@@ -26,18 +26,17 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.letssopt.R
-import com.example.letssopt.home.screens.WebtoonScreen
 import com.example.letssopt.ui.theme.LETSSOPTColors
 import com.example.letssopt.ui.theme.Typography
 
 @Composable
-fun Drama_section(
+fun DramaSection(
     contents: List<Int>,
     modifier: Modifier = Modifier
 ) {
     Column(
         modifier = modifier
-            .fillMaxSize()
+            .fillMaxWidth()
     ){
         Icon(
             imageVector = ImageVector.vectorResource(R.drawable.ic_main_whatgorism),
@@ -55,6 +54,7 @@ fun Drama_section(
                 style = Typography.h3,
                 color = LETSSOPTColors.Text_Secondary
             )
+
             Text(
                 text = "더보기",
                 style = Typography.caption2,
@@ -82,5 +82,5 @@ fun Drama_section(
 @Preview
 @Composable
 private fun Drama_sectionPreview() {
-    Drama_section(contents = fakeList)
+    DramaSection(contents = fakeList)
 }

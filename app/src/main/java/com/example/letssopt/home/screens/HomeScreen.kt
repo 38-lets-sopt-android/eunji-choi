@@ -9,10 +9,10 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.letssopt.component.HeightSpacer
 import com.example.letssopt.home.HomeViewModel
-import com.example.letssopt.home.sections.New_section
-import com.example.letssopt.home.sections.Party_section
-import com.example.letssopt.home.sections.Soon_section
-import com.example.letssopt.home.sections.Drama_section
+import com.example.letssopt.home.sections.NewSection
+import com.example.letssopt.home.sections.PartySection
+import com.example.letssopt.home.sections.SoonSection
+import com.example.letssopt.home.sections.DramaSection
 
 // 각 탭 화면들 (함수 하나 = 화면 하나)
 @Composable
@@ -27,19 +27,19 @@ fun HomeScreen(
     ){
         item {HeightSpacer(30.dp)}
 
-        item{New_section(contents = viewModel.getnewList())}
+        item{NewSection(contents = viewModel.getnewList())}
 
         item {HeightSpacer(20.dp)}
 
-        item {Drama_section(contents = viewModel.getdramaList())}
+        item {DramaSection(contents = viewModel.getdramaList())}
 
         item {HeightSpacer(20.dp)}
 
-        item {Soon_section(contents = viewModel.getsoonList())}
+        item {SoonSection(contents = viewModel.getsoonList())}
 
         item {HeightSpacer(20.dp)}
 
-        item {Party_section(contents = viewModel.getpartyList())}
+        item {PartySection(contents = viewModel.getpartyList())}
 
     }
 }

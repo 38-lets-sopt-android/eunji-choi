@@ -53,15 +53,8 @@ class HomeViewModel : ViewModel() {
         R.drawable.ic_top_bar_profile,
         )
 
-    fun gettopIcons() = topIcons
 
-    val bottomIcons = listOf(
-        BottomBarItem("메인", R.drawable.ic_bottom_bar_main, Home),
-        BottomBarItem("개별 구매", R.drawable.ic_bottom_bar_purchase, Purchase),
-        BottomBarItem("웹툰", R.drawable.ic_bottom_bar_webtoon, Webtoon),
-        BottomBarItem("찾기", R.drawable.ic_bottom_bar_search, Search),
-        BottomBarItem("보관함", R.drawable.ic_bottom_bar_storage, Storage),
-    )
 
-    fun getbottomIcons() = bottomIcons
+
+//    fun getbottomIcons() = bottomIcons
 }

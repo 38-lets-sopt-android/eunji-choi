@@ -9,9 +9,3 @@ data class PartyItem(
     val title: String
 )
 
-@Immutable
-data class BottomBarItem(
-    val label: String,
-    val icon: Int,
-    val destination: Any
-)

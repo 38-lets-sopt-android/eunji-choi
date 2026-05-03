@@ -1,6 +1,6 @@
 package com.example.letssopt.login
 
-import android.widget.Toast
+
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -16,11 +16,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -29,33 +24,33 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.letssopt.component.CustomTextField
 import com.example.letssopt.component.WeightSpacer
 import com.example.letssopt.component.noRippleClickable
-import com.example.letssopt.AutoViewModel
 import com.example.letssopt.ui.theme.LETSSOPTColors
 import com.example.letssopt.ui.theme.LETSSOPTTheme
 import com.example.letssopt.ui.theme.Typography
 
 
+
+
 @Composable
 fun LoginScreen(
-    navigateToHome: () -> Unit,   // 로그인 성공하면 이거 호출
-    navigateToSignUp: () -> Unit,  // 회원가입 누르면 이거 호출
-    modifier: Modifier = Modifier,
-    viewModel: AutoViewModel ) {
+    email: String,
+    password: String,
+    onEmailChange: (String) -> Unit,
+    onPasswordChange: (String) -> Unit,
+    onSignUpClick: () -> Unit,
+    onLoginClick: () -> Unit,
+    modifier: Modifier = Modifier) {
 
     val context = LocalContext.current
-
-    var emailinput by remember { mutableStateOf("") }
-    var pwinput by remember { mutableStateOf("") }
 
     Column(
         modifier = modifier
             .fillMaxSize()
             .background(LETSSOPTColors.BackGround)
-            .padding(horizontal = 16.dp)
+            .padding(horizontal = 15.dp)
             .imePadding() // 키보드 높이만큼 자동으로 패딩 추가!
     )
     {
@@ -89,8 +84,8 @@ fun LoginScreen(
         )
 
         CustomTextField(
-            value = emailinput,
-            onValueChange = { emailinput = it },
+            value = email,
+            onValueChange = onEmailChange,
             placeholder = "이메일 주소를 입력하세요",
             keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next)
         )
@@ -107,8 +102,8 @@ fun LoginScreen(
 
 
         CustomTextField(
-            value = pwinput,
-            onValueChange = { pwinput = it },
+            value = password,
+            onValueChange = onPasswordChange,
             placeholder = "비밀번호를 입력하세요",
             keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
             visualTransformation = PasswordVisualTransformation()
@@ -138,39 +133,32 @@ fun LoginScreen(
                 modifier = Modifier
                     .padding(3.dp)
                     .clickable(
-                        onClick = {navigateToSignUp()}
+                        onClick = onSignUpClick
                     )
             )
         }
 
         WeightSpacer(0.05f)
 
-
+        val IsEnabled = email.isNotEmpty() && password.isNotEmpty()
         Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(50.dp)
-                .background(LETSSOPTColors.Primary_Red, RoundedCornerShape(8.dp))
+                .background(color = if (IsEnabled) LETSSOPTColors.Primary_Red
+                    else LETSSOPTColors.Disabled,
+                    shape = RoundedCornerShape(8.dp))
                 .noRippleClickable(
                     enabled = true,
-                    onClick = {
-                        // email, pw가 같다는 조건 만족할 때만 'HomeScreen'로 이동!
-                        if (viewModel.loginCheck(emailinput, pwinput)) {
-                            Toast.makeText(context, "로그인에 성공했습니다", Toast.LENGTH_SHORT).show()
-                            navigateToHome()
-                        } else {
-                            Toast.makeText(context, "로그인에 실패했습니다", Toast.LENGTH_SHORT).show()
-                        }
-                    }
+                    onClick = onLoginClick
                 ),
             contentAlignment = Alignment.Center
         ) {
+
             Text(
                 "로그인",
                 style = Typography.body4,
-                color = if (viewModel.loginCheck(emailinput, pwinput))
-                        LETSSOPTColors.placeholder
-                        else LETSSOPTColors.White,
+                color = LETSSOPTColors.White,
             )
         }
 
@@ -185,9 +173,12 @@ fun LoginScreen(
 private fun LoginPreview() {
     LETSSOPTTheme {
         LoginScreen(
-            navigateToHome = {},
-            navigateToSignUp = {},
-            viewModel = remember { AutoViewModel() }
+            email = "eunji",
+            password = "12345678",
+            onEmailChange = {},
+            onPasswordChange = {},
+            onLoginClick = {},
+            onSignUpClick = {}
         )
     }
 }

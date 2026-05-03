@@ -20,14 +20,13 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.letssopt.R
 import com.example.letssopt.home.PartyItem
 import com.example.letssopt.ui.theme.LETSSOPTColors
 import com.example.letssopt.ui.theme.LETSSOPTTheme
 import com.example.letssopt.ui.theme.Typography
 
 @Composable
-fun Party_section(
+fun PartySection(
     contents: List<PartyItem>,
     modifier: Modifier = Modifier
 ) {
@@ -95,7 +94,7 @@ fun Party_section(
 @Composable
 private fun Party_sectionPreview() {
     LETSSOPTTheme {
-        Party_section(
+        PartySection(
             contents = fakepartyList
         )
     }

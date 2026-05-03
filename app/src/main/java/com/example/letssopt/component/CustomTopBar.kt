@@ -19,7 +19,7 @@ import com.example.letssopt.ui.theme.LETSSOPTColors
 @Composable
 fun CustomTopBar(
     modifier: Modifier = Modifier,
-    viewModel: HomeViewModel = viewModel()
+    icons : List<Int>
 ) {
     TopAppBar(
         modifier = modifier,
@@ -28,7 +28,7 @@ fun CustomTopBar(
             containerColor = LETSSOPTColors.BackGround
         ),
         actions = {
-            viewModel.gettopIcons().forEach { topIcon ->
+            icons.forEach { topIcon ->
                 Icon(
                     imageVector = ImageVector.vectorResource(id = topIcon),
                     contentDescription = null,
@@ -42,5 +42,5 @@ fun CustomTopBar(
 @Preview
 @Composable
 private fun CustomTopBarPreview() {
-    CustomTopBar()
+//    CustomTopBar()
 }

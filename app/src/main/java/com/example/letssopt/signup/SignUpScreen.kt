@@ -35,15 +35,16 @@ import com.example.letssopt.AutoViewModel
 
 @Composable
 fun SignUpScreen(
-    navigateToLogin: () -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: AutoViewModel
+    email: String,
+    password: String,
+    password2: String,
+    onEmailChange: (String) -> Unit,
+    onPasswordChange: (String) -> Unit,
+    onPassword2Change: (String) -> Unit,
+    onSignUpClick: () -> Unit
 ) {
-    val context = LocalContext.current
 
-    var pw by remember { mutableStateOf("") }
-    var pw2 by remember { mutableStateOf("") }
-    var email by remember { mutableStateOf("") }
 
     Column(
         modifier = modifier
@@ -83,7 +84,7 @@ fun SignUpScreen(
 
         CustomTextField(
             value = email,
-            onValueChange = { email = it },
+            onValueChange = onEmailChange,
             placeholder = "이메일 주소를 입력하세요",
             keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next)
         )
@@ -99,8 +100,8 @@ fun SignUpScreen(
         )
 
         CustomTextField(
-            value = pw,
-            onValueChange = { pw = it },
+            value = password,
+            onValueChange = onPasswordChange,
             placeholder = "비밀번호를 입력하세요",
             keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next)
         )
@@ -116,8 +117,8 @@ fun SignUpScreen(
         )
 
         CustomTextField(
-            value = pw2,
-            onValueChange = { pw2 = it },
+            value = password2,
+            onValueChange = onPassword2Change,
             placeholder = "비밀번호를 다시 입력하세요",
             keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done)
             // 마지막 TextField는 엔터키 누르면 키보드 내려가도록!
@@ -125,24 +126,18 @@ fun SignUpScreen(
 
         WeightSpacer(0.8f)
 
-        val isEnabled = email.isNotEmpty() && pw.isNotEmpty() && pw2.isNotEmpty()
+        val isEnabled = email.isNotEmpty() && password.isNotEmpty() && password2.isNotEmpty()
         Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(50.dp)
-                .background( if (isEnabled) LETSSOPTColors.Primary_Red else LETSSOPTColors.Disabled,
-                    RoundedCornerShape(8.dp))
+                .background(
+                    if (isEnabled) LETSSOPTColors.Primary_Red else LETSSOPTColors.Disabled,
+                    RoundedCornerShape(8.dp)
+                )
                 .noRippleClickable(
                     enabled = isEnabled,
-                    onClick = {
-                        if (viewModel.signCheck(email, pw, pw2))
-                        {
-                            Toast.makeText(context, "회원가입에 성공했습니다", Toast.LENGTH_SHORT).show()
-                            navigateToLogin()
-                        } else {
-                            Toast.makeText(context, "회원가입에 실패했습니다", Toast.LENGTH_SHORT).show()
-                        }
-                    }
+                    onClick = onSignUpClick
                 ),
             contentAlignment = Alignment.Center
         ) {
@@ -164,8 +159,13 @@ fun SignUpScreen(
 private fun SignupPreview() {
     LETSSOPTTheme {
         SignUpScreen(
-            viewModel = remember { AutoViewModel() },
-            navigateToLogin = {}
+            email = "eunji",
+            password = "12345678",
+            password2 = "12345678",
+            onEmailChange = {},
+            onPasswordChange = {},
+            onPassword2Change = {},
+            onSignUpClick = {}
         )
     }
 }

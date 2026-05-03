@@ -6,6 +6,7 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.key
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -25,66 +26,50 @@ import com.example.letssopt.ui.theme.LETSSOPTColors
 
 @Composable
 fun CustomBottomBar (
-    modifier: Modifier = Modifier,
-    viewModel: HomeViewModel = viewModel(),
-    navController: NavController
+    tabs: List<BottomIcons>,
+    currentTab: BottomIcons?,
+    onTabSelected: (BottomIcons) -> Unit,
+    modifier: Modifier = Modifier
     ){
     NavigationBar (
         modifier = modifier,
         containerColor = LETSSOPTColors.BackGround
     ) {
-        val currentDestination = navController.currentBackStackEntryAsState().value?.destination
-
-        viewModel.getbottomIcons().forEachIndexed { index, barIcon ->
-
-            val selected = currentDestination?.route == barIcon.destination::class.qualifiedName
-
-            NavigationBarItem(
-                colors = NavigationBarItemDefaults.colors(
-                    indicatorColor = Color.Transparent,
-                    selectedIconColor = LETSSOPTColors.White,
-                    unselectedIconColor = LETSSOPTColors.Disabled,
-                    selectedTextColor = LETSSOPTColors.White,
-                    unselectedTextColor = LETSSOPTColors.Disabled
-                ),
-                selected = selected,
-                onClick = {
-                    val destination = when (index) {
-                        0 -> Home
-                        1 -> Purchase
-                        2 -> Webtoon
-                        3 -> Search
-                        4 -> Storage
-                        else -> Home
-                    }
-                    navController.navigate(destination) {
-                        // 한 번 뒤로가기 누르면 HomeScreen으로 이동
-                        popUpTo<Home> { inclusive = false }
-                        // 한 번 더 누르면 앱 밖으로!
-                        launchSingleTop = true
-                    }
-                },
-                icon = {
-                    Icon(
-                        imageVector = ImageVector.vectorResource(id = barIcon.icon),
-                        contentDescription = null
-                    )
-                },
-                label = {
-                    Text(
-                        text = barIcon.label
-                    )
-                }
-            )
+        tabs.forEach { tab ->
+            key(tab.route) {
+                NavigationBarItem(
+                    colors = NavigationBarItemDefaults.colors(
+                        indicatorColor = Color.Transparent,
+                        selectedIconColor = LETSSOPTColors.White,
+                        unselectedIconColor = LETSSOPTColors.Disabled,
+                        selectedTextColor = LETSSOPTColors.White,
+                        unselectedTextColor = LETSSOPTColors.Disabled
+                    ),
+                    selected = (tab == currentTab),
+                    icon = {
+                        Icon(
+                            imageVector = ImageVector.vectorResource(id = tab.iconRes),
+                            contentDescription = null
+                        )
+                    },
+                    label = {
+                        Text(
+                            text = tab.label
+                        )
+                    },
+                    onClick = { onTabSelected(tab) }
+                )
+            }
         }
     }
 }
+
 
 @Preview
 @Composable
 private fun CustomBottomBarPreview() {
     val navController = rememberNavController()
-    CustomBottomBar(
-        navController = navController
-    )
+//    CustomBottomBar(
+//        navController = navController
+//    )
 }
