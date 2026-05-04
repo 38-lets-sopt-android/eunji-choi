@@ -1,4 +1,4 @@
-package com.example.letssopt.signup
+package com.example.letssopt
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -13,6 +13,14 @@ class PreferenceUtil(context: Context) {
 
     fun setBoolean(key: String, value: Boolean) {
         prefs.edit().putBoolean(key, value).apply()
+    }
+
+    fun getString(key: String, defValue: String = ""): String {
+        return prefs.getString(key, defValue) ?: defValue
+    }
+
+    fun setString(key: String, value: String) {
+        prefs.edit().putString(key, value).apply()
     }
 
 }

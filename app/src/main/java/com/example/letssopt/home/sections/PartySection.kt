@@ -1,4 +1,4 @@
-package com.example.letssopt.main.sections
+package com.example.letssopt.home.sections
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -16,23 +16,18 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import com.example.letssopt.R
-import com.example.letssopt.main.PartyItem
+import com.example.letssopt.home.PartyItem
 import com.example.letssopt.ui.theme.LETSSOPTColors
 import com.example.letssopt.ui.theme.LETSSOPTTheme
 import com.example.letssopt.ui.theme.Typography
 
 @Composable
-fun Party_section(
+fun PartySection(
     contents: List<PartyItem>,
-    onContentClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
 
@@ -68,7 +63,7 @@ fun Party_section(
                         contentDescription = null,
                         contentScale = ContentScale.Crop,
                         modifier = Modifier
-                            .fillMaxSize()
+                            .fillMaxWidth()
                             .aspectRatio(6f / 5f)
                     )
                     Column(
@@ -92,5 +87,15 @@ fun Party_section(
             }
         }
     }
+}
 
+
+@Preview
+@Composable
+private fun Party_sectionPreview() {
+    LETSSOPTTheme {
+        PartySection(
+            contents = fakepartyList
+        )
+    }
 }

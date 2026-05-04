@@ -23,7 +23,7 @@ data class LETSSOPTTypography(
     val caption2: TextStyle
 )
 
-private val PretendardFontFamily = FontFamily(
+private val pretendardFontFamily = FontFamily(
     Font(R.font.pretendard_regular, weight = FontWeight.Normal),
     Font(R.font.pretendard_bold, weight = FontWeight.Bold),
     Font(R.font.pretendard_bold, weight = FontWeight.W700),
@@ -33,73 +33,73 @@ private val PretendardFontFamily = FontFamily(
 )
 
 private val L1 = TextStyle(
-    fontFamily = PretendardFontFamily,
+    fontFamily = pretendardFontFamily,
     fontWeight = FontWeight.Bold,
     fontSize = 36.sp
 )
 
 private val H1 = TextStyle(
-    fontFamily = PretendardFontFamily,
+    fontFamily = pretendardFontFamily,
     fontWeight = FontWeight.Bold,
     fontSize = 24.sp
 )
 
 private val H2 = TextStyle(
-    fontFamily = PretendardFontFamily,
+    fontFamily = pretendardFontFamily,
     fontWeight = FontWeight.Bold,
     fontSize = 20.sp
 )
 
 private val H3 = TextStyle(
-    fontFamily = PretendardFontFamily,
+    fontFamily = pretendardFontFamily,
     fontWeight = FontWeight.W600,
     fontSize = 20.sp
 )
 
 private val SH1 = TextStyle(
-    fontFamily = PretendardFontFamily,
+    fontFamily = pretendardFontFamily,
     fontWeight = FontWeight.W600,
     fontSize = 18.sp
 )
 
 private val SH3 = TextStyle(
-    fontFamily = PretendardFontFamily,
+    fontFamily = pretendardFontFamily,
     fontWeight = FontWeight.W600,
     fontSize = 12.sp
 )
 
 private val Body = TextStyle(
-    fontFamily = PretendardFontFamily,
+    fontFamily = pretendardFontFamily,
     fontWeight = FontWeight.Normal,
     fontSize = 16.sp
 )
 
 private val Body2 = TextStyle(
-    fontFamily = PretendardFontFamily,
+    fontFamily = pretendardFontFamily,
     fontWeight = FontWeight.W500,
     fontSize = 12.sp
 )
 
 private val Body3 = TextStyle(
-    fontFamily = PretendardFontFamily,
+    fontFamily = pretendardFontFamily,
     fontWeight = FontWeight.Normal,
     fontSize = 12.sp
 )
 
 private val Body4 = TextStyle(
-    fontFamily = PretendardFontFamily,
+    fontFamily = pretendardFontFamily,
     fontWeight = FontWeight.W700,
     fontSize = 16.sp
 )
 
 private val Caption = TextStyle(
-    fontFamily = PretendardFontFamily,
+    fontFamily = pretendardFontFamily,
     fontWeight = FontWeight.Normal,
     fontSize = 14.sp
 )
 
 private val Caption2 = TextStyle(
-    fontFamily = PretendardFontFamily,
+    fontFamily = pretendardFontFamily,
     fontWeight = FontWeight.W300,
     fontSize = 12.sp
 )
@@ -114,7 +114,7 @@ val Typography = LETSSOPTTypography(
     body3 = Body3,
     body4 = Body4,
     caption = Caption,
-    caption2 = Caption,
+    caption2 = Caption2,
     sh1 = SH1,
     sh3 = SH3
 )

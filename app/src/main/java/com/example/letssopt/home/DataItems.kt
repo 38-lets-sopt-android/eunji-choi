@@ -1,4 +1,4 @@
-package com.example.letssopt.main
+package com.example.letssopt.home
 
 import androidx.compose.runtime.Immutable
 
@@ -9,8 +9,3 @@ data class PartyItem(
     val title: String
 )
 
-@Immutable
-data class BottomBarItem(
-    val label: String,
-    val icon: Int
-)

@@ -1,7 +1,5 @@
 package com.example.letssopt.component
 
-import androidx.compose.foundation.layout.ColumnScope
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
@@ -11,23 +9,11 @@ import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import com.example.letssopt.R
 import com.example.letssopt.ui.theme.LETSSOPTColors
-import com.example.letssopt.ui.theme.LETSSOPTTheme
-import com.example.letssopt.ui.theme.LETSSOPTTypography
 import com.example.letssopt.ui.theme.Typography
-
-
-@Composable // Spacer(modifier.weight(1f) 커스텀
-fun ColumnScope.WeightSpacer(weight: Float, modifier: Modifier = Modifier) {
-    Spacer(modifier = modifier.weight(weight))
-}
 
 @Composable
 fun CustomTextField(
@@ -64,3 +50,12 @@ fun CustomTextField(
     )
 }
 
+@Preview
+@Composable
+private fun CustomTextFieldPreview() {
+    CustomTextField(
+        value = "테스트",
+        onValueChange = {},
+        placeholder = "입력하세요"
+    )
+}
