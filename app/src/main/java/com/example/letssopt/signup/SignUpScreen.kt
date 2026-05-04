@@ -12,36 +12,28 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.letssopt.component.CustomTextField
 import com.example.letssopt.component.WeightSpacer
 import com.example.letssopt.component.noRippleClickable
 import com.example.letssopt.ui.theme.LETSSOPTColors
 import com.example.letssopt.ui.theme.LETSSOPTTheme
 import com.example.letssopt.ui.theme.Typography
-import android.widget.Toast
-import com.example.letssopt.AutoViewModel
 
 @Composable
 fun SignUpScreen(
     modifier: Modifier = Modifier,
     email: String,
     password: String,
-    password2: String,
+    confirmpassword: String,
     onEmailChange: (String) -> Unit,
     onPasswordChange: (String) -> Unit,
-    onPassword2Change: (String) -> Unit,
+    onConfirmPasswordChange: (String) -> Unit,
     onSignUpClick: () -> Unit
 ) {
 
@@ -117,8 +109,8 @@ fun SignUpScreen(
         )
 
         CustomTextField(
-            value = password2,
-            onValueChange = onPassword2Change,
+            value = confirmpassword,
+            onValueChange = onConfirmPasswordChange,
             placeholder = "비밀번호를 다시 입력하세요",
             keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done)
             // 마지막 TextField는 엔터키 누르면 키보드 내려가도록!
@@ -126,7 +118,7 @@ fun SignUpScreen(
 
         WeightSpacer(0.8f)
 
-        val isEnabled = email.isNotEmpty() && password.isNotEmpty() && password2.isNotEmpty()
+        val isEnabled = email.isNotEmpty() && password.isNotEmpty() && confirmpassword.isNotEmpty()
         Box(
             modifier = Modifier
                 .fillMaxWidth()
@@ -161,10 +153,10 @@ private fun SignupPreview() {
         SignUpScreen(
             email = "eunji",
             password = "12345678",
-            password2 = "12345678",
+            confirmpassword = "12345678",
             onEmailChange = {},
             onPasswordChange = {},
-            onPassword2Change = {},
+            onConfirmPasswordChange = {},
             onSignUpClick = {}
         )
     }

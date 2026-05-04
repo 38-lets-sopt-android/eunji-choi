@@ -16,10 +16,10 @@ fun SignUpRoute (
     SignUpScreen(
         email = viewModel.email,
         password = viewModel.password,
-        password2 = viewModel.password2,
+        confirmpassword = viewModel.confirmpassword,
         onEmailChange = { viewModel.onEmailChange(it) },
         onPasswordChange = { viewModel.onPasswordChange(it) },
-        onPassword2Change = { viewModel.onPassword2Change(it) },
+        onConfirmPasswordChange = { viewModel.onPassword2Change(it) },
         onSignUpClick = {
             if (viewModel.signupCheck()) {
                 Toast.makeText(context, "회원가입에 성공했습니다", Toast.LENGTH_SHORT).show()
