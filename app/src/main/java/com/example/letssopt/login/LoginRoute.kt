@@ -15,9 +15,9 @@ fun LoginRoute (
     val context = LocalContext.current
 
     LoginScreen(
-        email = viewModel.email,
+        id = viewModel.id,
         password = viewModel.password,
-        onEmailChange = { viewModel.onEmailChange(it) },
+        onIdChange = { viewModel.onIdChange(it) },
         onPasswordChange = { viewModel.onPasswordChange(it) },
         onSignUpClick = { navigateToSignUp() },
         onLoginClick = {

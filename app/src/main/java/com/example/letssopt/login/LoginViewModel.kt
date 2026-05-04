@@ -7,19 +7,19 @@ import androidx.lifecycle.ViewModel
 import com.example.letssopt.SaveInfo
 
 class LoginViewModel : ViewModel() {
-    val saveemail = SaveInfo.prefs.getString("email")
+    val saveid = SaveInfo.prefs.getString("id")
     val savepassword = SaveInfo.prefs.getString("password")
 
-    var email by mutableStateOf("")
+    var id by mutableStateOf("")
     var password by mutableStateOf("")
 
-    fun onEmailChange(value: String) { email = value }
+    fun onIdChange(value: String) { id = value }
 
     fun onPasswordChange(value: String) { password = value }
 
     // 로그인 조건 체크 + 조건 만족 시 pref에 저장
     fun LoginCheck() : Boolean {
-        val logincondition = if(email == saveemail && password == savepassword) true
+        val logincondition = if(id.isNotEmpty() && password.isNotEmpty() && id == saveid && password == savepassword) true
             else false
 
         SaveLoginInfo(logincondition)
