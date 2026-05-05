@@ -21,7 +21,6 @@ import com.example.letssopt.component.BottomIcons
 import com.example.letssopt.component.CustomBottomBar
 import com.example.letssopt.component.CustomTopBar
 import com.example.letssopt.home.HomeViewModel
-import com.example.letssopt.login.LoginScreen
 import com.example.letssopt.home.screens.HomeScreen
 import com.example.letssopt.home.screens.PurchaseScreen
 import com.example.letssopt.home.screens.SearchScreen
@@ -37,7 +36,6 @@ import com.example.letssopt.navigation.SignUp
 import com.example.letssopt.navigation.Storage
 import com.example.letssopt.navigation.Webtoon
 import com.example.letssopt.signup.SignUpRoute
-import com.example.letssopt.signup.SignUpScreen
 import com.example.letssopt.ui.theme.LETSSOPTTheme
 
 
@@ -129,13 +127,11 @@ class MainActivity : ComponentActivity() {
                         }
 
                         composable<SignUp> {
-                            SignUpRoute(
-                                navigateToLogin = {
-                                    navController.navigate(Login) {
-                                        popUpTo<SignUp> { inclusive = true }
-                                    }
+                            SignUpRoute {
+                                navController.navigate(Login) {
+                                    popUpTo<SignUp> { inclusive = true }
                                 }
-                            )
+                            }
                         }
 
                         navigation<HomeGraph>(startDestination = Home) {

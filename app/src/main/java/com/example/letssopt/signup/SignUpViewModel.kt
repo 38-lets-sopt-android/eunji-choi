@@ -1,13 +1,24 @@
 package com.example.letssopt.signup
 
 import android.util.Patterns
+import android.widget.Toast
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
-import com.example.letssopt.SaveInfo
+import androidx.lifecycle.viewModelScope
+import com.example.letssopt.RetrofitClient
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
 
 class SignUpViewModel : ViewModel() {
+
+    private val _uiState = MutableStateFlow<SignUpUiState>(SignUpUiState.Idle)
+    val uiState: StateFlow<SignUpUiState> = _uiState.asStateFlow()
+
+
     var id by mutableStateOf("")
     var password by mutableStateOf("")
     var confirmpassword by mutableStateOf("")
@@ -24,23 +35,41 @@ class SignUpViewModel : ViewModel() {
     fun onAgeChange(value: String) { age = value }
     fun onPartChange(value: String) { part = value }
 
-    // 회원가입했던 id, password 저장 : 로그인 때 비교 용도
-    fun saveInfo(id: String, password: String) {
-        SaveInfo.prefs.setString("id", id)
-        SaveInfo.prefs.setString("password", password)
-        SaveInfo.prefs.setString("name", name)
-        SaveInfo.prefs.setString("email", email)
-        SaveInfo.prefs.setString("age", age)
-        SaveInfo.prefs.setString("part", part)
-    }
+    // 회원가입 조건 체크
+    private fun isValid() = Patterns.EMAIL_ADDRESS.matcher(id)
+        .matches() && password.length >= 8 && password.length < 12 && password == confirmpassword
 
-    // 회원가입 조건 체크 + 조건 만족 시 id, pw 저장
-    fun signupCheck() : Boolean {
-        val isvalid = Patterns.EMAIL_ADDRESS.matcher(id)
-            .matches() && password.length >= 8 && password.length < 12 && password == confirmpassword
+    // 회원가입할 때 정보(id, pw, name 등)를 서버에 저장
+    fun signUp() {
+        if (!isValid()) {
+            _uiState.value = SignUpUiState.Error("입력값을 확인해주세요")
+            return
+        }
+        viewModelScope.launch {
 
-        if (isvalid) saveInfo(id, password)
+            _uiState.value = SignUpUiState.Loading
 
-        return isvalid
+            runCatching {
+                RetrofitClient.apiService.signUp(
+                    SignUpRequest(
+                        loginId = id,
+                        password = password,
+                        name = name,
+                        email = email,
+                        age = age.toInt(),
+                        part = part
+                    )
+                )
+            }.onSuccess { response ->
+                if (response.isSuccessful) {
+                    _uiState.value = SignUpUiState.Success
+                } else {
+                    val message = response.body()?.message ?: "회원가입에 실패했습니다"
+                    _uiState.value = SignUpUiState.Error(message)
+                }
+            }.onFailure { e ->
+                _uiState.value = SignUpUiState.Error(e.message ?: "네트워크 오류가 발생했습니다")
+            }
+        }
     }
 }

@@ -2,6 +2,9 @@ package com.example.letssopt.signup
 
 import android.widget.Toast
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
 
@@ -10,8 +13,23 @@ fun SignUpRoute (
     navigateToLogin: () -> Unit
 ){
     val viewModel: SignUpViewModel = viewModel()
-
     val context = LocalContext.current
+    val uiState by viewModel.uiState.collectAsState()
+
+    //Uistate 변화 감지
+    LaunchedEffect(uiState) {
+        when (uiState) {
+            is SignUpUiState.Success -> {
+                Toast.makeText(context, "회원가입에 성공했습니다", Toast.LENGTH_SHORT).show()
+                navigateToLogin()
+            }
+            is SignUpUiState.Error -> {
+                val message = (uiState as SignUpUiState.Error).message
+                Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+            }
+            else -> {}
+        }
+    }
 
     SignUpScreen(
         id = viewModel.id,
@@ -28,11 +46,6 @@ fun SignUpRoute (
         onEmailChange = { viewModel.onEmailChange(it)},
         onAgeChange = { viewModel.onAgeChange(it)},
         onPartChange = { viewModel.onPartChange(it)},
-        onSignUpClick = {
-            if (viewModel.signupCheck()) {
-                Toast.makeText(context, "회원가입에 성공했습니다", Toast.LENGTH_SHORT).show()
-                navigateToLogin()}
-            else {Toast.makeText(context, "회원가입에 실패했습니다", Toast.LENGTH_SHORT).show()}
-        }
+        onSignUpClick = { viewModel.signUp() }
     )
 }
