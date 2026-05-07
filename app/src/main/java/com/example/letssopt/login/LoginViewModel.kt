@@ -49,13 +49,14 @@ class LoginViewModel : ViewModel() {
                 )
             }.onSuccess { response ->
                 if (response.isSuccessful) {
-                    _uiState.value = LoginUiState.Success(userId)
+                    val userId = response.body()?.data?.userId
+                    _uiState.value = LoginUiState.Success(userId = userId ?: 0)
                 } else {
                     val message = response.body()?.message ?: "회원가입에 실패했습니다"
                     _uiState.value = LoginUiState.Error(message)
                 }
             }.onFailure { e ->
-                _uiState.value = SignUpUiState.Error(e.message ?: "네트워크 오류가 발생했습니다")
+                _uiState.value = LoginUiState.Error(e.message ?: "네트워크 오류가 발생했습니다")
             }
         }
     }
