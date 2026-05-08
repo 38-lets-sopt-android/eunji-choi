@@ -21,10 +21,22 @@ data class SignUpRequest(
 
 @Serializable
 data class SignUpResponse(
+    @SerialName("success")
+    val success: Boolean,
     @SerialName("status")
     val status: Int,
     @SerialName("message")
     val message: String,
-    @SerialName("data")
-    val data: Int
+    @SerialName("code")
+    val code: String,
+    @SerialName("meta")
+    val meta: SignUpMeta? = null
+)
+
+@Serializable
+data class SignUpMeta(
+    @SerialName("path")
+    val path: String,
+    @SerialName("timestamp")
+    val timestamp: String
 )

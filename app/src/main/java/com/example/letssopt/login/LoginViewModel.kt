@@ -7,8 +7,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.letssopt.RetrofitClient
 import com.example.letssopt.SaveInfo
-import com.example.letssopt.signup.SignUpRequest
-import com.example.letssopt.signup.SignUpUiState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
