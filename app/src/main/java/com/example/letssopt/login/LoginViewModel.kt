@@ -16,8 +16,6 @@ class LoginViewModel : ViewModel() {
     private val _uiState = MutableStateFlow<LoginUiState>(LoginUiState.Idle)
     val uiState: StateFlow<LoginUiState> = _uiState.asStateFlow()
 
-    val saveid = SaveInfo.prefs.getString("id")
-    val savepassword = SaveInfo.prefs.getString("password")
 
     var id by mutableStateOf("")
     var password by mutableStateOf("")
@@ -27,7 +25,7 @@ class LoginViewModel : ViewModel() {
     fun onPasswordChange(value: String) { password = value }
 
     // 로그인 조건 체크
-    private fun isValid() = id.isNotEmpty() && password.isNotEmpty() && id == saveid && password == savepassword
+    private fun isValid() = id.isNotEmpty() && password.isNotEmpty()
 
     fun login() {
         if (!isValid()) {
