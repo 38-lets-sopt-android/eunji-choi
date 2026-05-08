@@ -10,10 +10,10 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.letssopt.SaveInfo
 
 @Composable
-fun LoginRoute (
+fun LoginRoute(
     navigateToHome: () -> Unit,   // 로그인 성공하면 이거 호출
     navigateToSignUp: () -> Unit,  // 회원가입 누르면 이거 호출
-){
+) {
     val viewModel: LoginViewModel = viewModel()
     val context = LocalContext.current
     val uiState by viewModel.uiState.collectAsState()
@@ -26,10 +26,12 @@ fun LoginRoute (
                 SaveInfo.prefs.setBoolean("Is_Logged_In", true)
                 navigateToHome()
             }
+
             is LoginUiState.Error -> {
                 val message = (uiState as LoginUiState.Error).message
                 Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
             }
+
             else -> {}
         }
     }

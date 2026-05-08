@@ -6,7 +6,6 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.letssopt.RetrofitClient
-import com.example.letssopt.SaveInfo
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -20,9 +19,13 @@ class LoginViewModel : ViewModel() {
     var id by mutableStateOf("")
     var password by mutableStateOf("")
 
-    fun onIdChange(value: String) { id = value }
+    fun onIdChange(value: String) {
+        id = value
+    }
 
-    fun onPasswordChange(value: String) { password = value }
+    fun onPasswordChange(value: String) {
+        password = value
+    }
 
     // 로그인 조건 체크
     private fun isValid() = id.isNotEmpty() && password.isNotEmpty()

@@ -32,8 +32,6 @@ import com.example.letssopt.ui.theme.LETSSOPTTheme
 import com.example.letssopt.ui.theme.Typography
 
 
-
-
 @Composable
 fun LoginScreen(
     id: String,
@@ -42,7 +40,8 @@ fun LoginScreen(
     onPasswordChange: (String) -> Unit,
     onSignUpClick: () -> Unit,
     onLoginClick: () -> Unit,
-    modifier: Modifier = Modifier) {
+    modifier: Modifier = Modifier
+) {
 
     val context = LocalContext.current
 
@@ -145,9 +144,11 @@ fun LoginScreen(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(50.dp)
-                .background(color = if (IsEnabled) LETSSOPTColors.Primary_Red
+                .background(
+                    color = if (IsEnabled) LETSSOPTColors.Primary_Red
                     else LETSSOPTColors.Disabled,
-                    shape = RoundedCornerShape(8.dp))
+                    shape = RoundedCornerShape(8.dp)
+                )
                 .noRippleClickable(
                     enabled = true,
                     onClick = onLoginClick

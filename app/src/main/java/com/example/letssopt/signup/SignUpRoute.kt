@@ -9,9 +9,9 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
 
 @Composable
-fun SignUpRoute (
+fun SignUpRoute(
     navigateToLogin: () -> Unit
-){
+) {
     val viewModel: SignUpViewModel = viewModel()
     val context = LocalContext.current
     val uiState by viewModel.uiState.collectAsState()
@@ -23,10 +23,12 @@ fun SignUpRoute (
                 Toast.makeText(context, "회원가입에 성공했습니다", Toast.LENGTH_SHORT).show()
                 navigateToLogin()
             }
+
             is SignUpUiState.Error -> {
                 val message = (uiState as SignUpUiState.Error).message
                 Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
             }
+
             else -> {}
         }
     }
@@ -42,10 +44,10 @@ fun SignUpRoute (
         onIdChange = { viewModel.onIdChange(it) },
         onPasswordChange = { viewModel.onPasswordChange(it) },
         onConfirmPasswordChange = { viewModel.onConfirmPasswordChange(it) },
-        onNameChange = { viewModel.onNameChange(it)},
-        onEmailChange = { viewModel.onEmailChange(it)},
-        onAgeChange = { viewModel.onAgeChange(it)},
-        onPartChange = { viewModel.onPartChange(it)},
+        onNameChange = { viewModel.onNameChange(it) },
+        onEmailChange = { viewModel.onEmailChange(it) },
+        onAgeChange = { viewModel.onAgeChange(it) },
+        onPartChange = { viewModel.onPartChange(it) },
         onSignUpClick = { viewModel.signUp() }
     )
 }

@@ -6,22 +6,20 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import com.example.letssopt.component.CustomTextField
 import com.example.letssopt.ui.theme.LETSSOPTColors
 import com.example.letssopt.ui.theme.Typography
 
 @Composable
-fun SignUpTextField (
+fun SignUpTextField(
     modifier: Modifier = Modifier,
     text: String,
     onValueChange: (String) -> Unit,
     placeholder: String,
     value: String,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
-    ){
+) {
     Text(
         text = text,
         modifier = modifier

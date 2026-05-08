@@ -1,7 +1,6 @@
 package com.example.letssopt.signup
 
 import android.util.Patterns
-import android.widget.Toast
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -27,13 +26,33 @@ class SignUpViewModel : ViewModel() {
     var age by mutableStateOf("")
     var part by mutableStateOf("")
 
-    fun onIdChange(value: String) { id = value }
-    fun onPasswordChange(value: String) { password = value }
-    fun onConfirmPasswordChange(value: String) { confirmpassword = value }
-    fun onNameChange(value: String) { name = value }
-    fun onEmailChange(value: String) { email = value }
-    fun onAgeChange(value: String) { age = value }
-    fun onPartChange(value: String) { part = value }
+    fun onIdChange(value: String) {
+        id = value
+    }
+
+    fun onPasswordChange(value: String) {
+        password = value
+    }
+
+    fun onConfirmPasswordChange(value: String) {
+        confirmpassword = value
+    }
+
+    fun onNameChange(value: String) {
+        name = value
+    }
+
+    fun onEmailChange(value: String) {
+        email = value
+    }
+
+    fun onAgeChange(value: String) {
+        age = value
+    }
+
+    fun onPartChange(value: String) {
+        part = value
+    }
 
     // 회원가입 조건 체크
     private fun isValid() = Patterns.EMAIL_ADDRESS.matcher(id)
