@@ -7,6 +7,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.letssopt.SaveInfo
 
 @Composable
 fun LoginRoute (
@@ -22,6 +23,7 @@ fun LoginRoute (
         when (uiState) {
             is LoginUiState.Success -> {
                 Toast.makeText(context, "로그인에 성공했습니다", Toast.LENGTH_SHORT).show()
+                SaveInfo.prefs.setBoolean("Is_Logged_In", true)
                 navigateToHome()
             }
             is LoginUiState.Error -> {

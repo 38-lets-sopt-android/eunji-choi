@@ -45,7 +45,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             LETSSOPTTheme {
-                val startDestination = if (SaveInfo.prefs.getBoolean("is_logged_in", false)) HomeGraph else Login
+                val startDestination = if (SaveInfo.prefs.getBoolean("Is_Logged_In", false)) HomeGraph else Login
 
                 val navController = rememberNavController()
 
