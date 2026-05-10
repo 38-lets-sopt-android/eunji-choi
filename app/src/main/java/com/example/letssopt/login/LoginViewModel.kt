@@ -16,11 +16,11 @@ class LoginViewModel : ViewModel() {
     val uiState: StateFlow<LoginUiState> = _uiState.asStateFlow()
 
 
-    var id by mutableStateOf("")
+    var loginid by mutableStateOf("")
     var password by mutableStateOf("")
 
-    fun onIdChange(value: String) {
-        id = value
+    fun onLoginIdChange(value: String) {
+        loginid = value
     }
 
     fun onPasswordChange(value: String) {
@@ -28,7 +28,7 @@ class LoginViewModel : ViewModel() {
     }
 
     // 로그인 조건 체크
-    private fun isValid() = id.isNotEmpty() && password.isNotEmpty()
+    private fun isValid() = loginid.isNotEmpty() && password.isNotEmpty()
 
     fun login() {
         if (!isValid()) {
@@ -41,8 +41,8 @@ class LoginViewModel : ViewModel() {
 
             runCatching {
                 RetrofitClient.apiService.logIn(
-                    LoginRequest(
-                        loginId = id,
+                    LoginRequestDto(
+                        loginId = loginid,
                         password = password
                     )
                 )

@@ -37,9 +37,9 @@ fun LoginRoute(
     }
 
     LoginScreen(
-        id = viewModel.id,
+        loginid = viewModel.loginid,
         password = viewModel.password,
-        onIdChange = { viewModel.onIdChange(it) },
+        onLoginIdChange = { viewModel.onLoginIdChange(it) },
         onPasswordChange = { viewModel.onPasswordChange(it) },
         onSignUpClick = { navigateToSignUp() },
         onLoginClick = { viewModel.login() }

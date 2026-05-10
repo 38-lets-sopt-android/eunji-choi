@@ -34,9 +34,9 @@ import com.example.letssopt.ui.theme.Typography
 
 @Composable
 fun LoginScreen(
-    id: String,
+    loginid: String,
     password: String,
-    onIdChange: (String) -> Unit,
+    onLoginIdChange: (String) -> Unit,
     onPasswordChange: (String) -> Unit,
     onSignUpClick: () -> Unit,
     onLoginClick: () -> Unit,
@@ -83,8 +83,8 @@ fun LoginScreen(
         )
 
         CustomTextField(
-            value = id,
-            onValueChange = onIdChange,
+            value = loginid,
+            onValueChange = onLoginIdChange,
             placeholder = "이메일 주소를 입력하세요",
             keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next)
         )
@@ -139,7 +139,7 @@ fun LoginScreen(
 
         WeightSpacer(0.05f)
 
-        val IsEnabled = id.isNotEmpty() && password.isNotEmpty()
+        val IsEnabled = loginid.isNotEmpty() && password.isNotEmpty()
         Box(
             modifier = Modifier
                 .fillMaxWidth()
@@ -174,9 +174,9 @@ fun LoginScreen(
 private fun LoginPreview() {
     LETSSOPTTheme {
         LoginScreen(
-            id = "eunji",
+            loginid = "eunji",
             password = "12345678",
-            onIdChange = {},
+            onLoginIdChange = {},
             onPasswordChange = {},
             onLoginClick = {},
             onSignUpClick = {}

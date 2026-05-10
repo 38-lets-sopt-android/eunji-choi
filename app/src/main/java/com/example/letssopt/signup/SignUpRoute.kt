@@ -34,14 +34,14 @@ fun SignUpRoute(
     }
 
     SignUpScreen(
-        id = viewModel.id,
+        loginid = viewModel.loginid,
         password = viewModel.password,
         confirmpassword = viewModel.confirmpassword,
         name = viewModel.name,
         email = viewModel.email,
         age = viewModel.age,
         part = viewModel.part,
-        onIdChange = { viewModel.onIdChange(it) },
+        onLoginIdChange = { viewModel.onLoginIdChange(it) },
         onPasswordChange = { viewModel.onPasswordChange(it) },
         onConfirmPasswordChange = { viewModel.onConfirmPasswordChange(it) },
         onNameChange = { viewModel.onNameChange(it) },

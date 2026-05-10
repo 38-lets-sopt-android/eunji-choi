@@ -29,14 +29,14 @@ import com.example.letssopt.ui.theme.Typography
 @Composable
 fun SignUpScreen(
     modifier: Modifier = Modifier,
-    id: String,
+    loginid: String,
     password: String,
     confirmpassword: String,
     name: String,
     email: String,
     age: String,
     part: String,
-    onIdChange: (String) -> Unit,
+    onLoginIdChange: (String) -> Unit,
     onPasswordChange: (String) -> Unit,
     onConfirmPasswordChange: (String) -> Unit,
     onNameChange: (String) -> Unit,
@@ -80,9 +80,9 @@ fun SignUpScreen(
         // 이메일 입력
         SignUpTextField(
             text = "이메일",
-            onValueChange = onIdChange,
+            onValueChange = onLoginIdChange,
             placeholder = "이메일 주소를 입력하세요",
-            value = id,
+            value = loginid,
             keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next)
         )
 
@@ -153,7 +153,7 @@ fun SignUpScreen(
         )
 
         HeightSpacer(30.dp)
-        val isEnabled = id.isNotEmpty() && password.isNotEmpty() && confirmpassword.isNotEmpty()
+        val isEnabled = loginid.isNotEmpty() && password.isNotEmpty() && confirmpassword.isNotEmpty()
         Box(
             modifier = Modifier
                 .fillMaxWidth()
@@ -186,14 +186,14 @@ fun SignUpScreen(
 private fun SignupPreview() {
     LETSSOPTTheme {
         SignUpScreen(
-            id = "eunji",
+            loginid = "eunji",
             password = "12345678",
             confirmpassword = "12345678",
             name = "최은지",
             email = "eunji@naver.com",
             age = "22",
             part = "안드로이드",
-            onIdChange = {},
+            onLoginIdChange = {},
             onPasswordChange = {},
             onConfirmPasswordChange = {},
             onNameChange = {},

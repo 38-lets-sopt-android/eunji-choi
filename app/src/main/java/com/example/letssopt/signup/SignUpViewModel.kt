@@ -18,7 +18,7 @@ class SignUpViewModel : ViewModel() {
     val uiState: StateFlow<SignUpUiState> = _uiState.asStateFlow()
 
 
-    var id by mutableStateOf("")
+    var loginid by mutableStateOf("")
     var password by mutableStateOf("")
     var confirmpassword by mutableStateOf("")
     var name by mutableStateOf("")
@@ -26,8 +26,8 @@ class SignUpViewModel : ViewModel() {
     var age by mutableStateOf("")
     var part by mutableStateOf("")
 
-    fun onIdChange(value: String) {
-        id = value
+    fun onLoginIdChange(value: String) {
+        loginid = value
     }
 
     fun onPasswordChange(value: String) {
@@ -55,7 +55,7 @@ class SignUpViewModel : ViewModel() {
     }
 
     // 회원가입 조건 체크
-    private fun isValid() = Patterns.EMAIL_ADDRESS.matcher(id)
+    private fun isValid() = Patterns.EMAIL_ADDRESS.matcher(loginid)
         .matches() && password.length >= 8 && password.length < 12 && password == confirmpassword
 
     // 회원가입할 때 정보(id, pw, name 등)를 서버에 저장
@@ -70,8 +70,8 @@ class SignUpViewModel : ViewModel() {
 
             runCatching {
                 RetrofitClient.apiService.signUp(
-                    SignUpRequest(
-                        loginId = id,
+                    SignUpRequestDto(
+                        loginId = loginid,
                         password = password,
                         name = name,
                         email = email,
