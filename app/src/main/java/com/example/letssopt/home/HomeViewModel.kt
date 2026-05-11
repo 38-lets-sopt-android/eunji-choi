@@ -47,14 +47,9 @@ class HomeViewModel : ViewModel() {
 
     fun getpartyList() = partyList
 
-    val topIcons = listOf(
+    val topIcons = mutableListOf(
         R.drawable.ic_top_bar_video,
         R.drawable.ic_top_bar_bell,
         R.drawable.ic_top_bar_profile,
-        )
-
-
-
-
-//    fun getbottomIcons() = bottomIcons
+    )
 }

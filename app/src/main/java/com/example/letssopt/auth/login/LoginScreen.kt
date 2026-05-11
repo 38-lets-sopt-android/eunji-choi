@@ -1,4 +1,4 @@
-package com.example.letssopt.login
+package com.example.letssopt.auth.login
 
 
 import androidx.compose.foundation.background
@@ -32,17 +32,16 @@ import com.example.letssopt.ui.theme.LETSSOPTTheme
 import com.example.letssopt.ui.theme.Typography
 
 
-
-
 @Composable
 fun LoginScreen(
-    email: String,
+    loginid: String,
     password: String,
-    onEmailChange: (String) -> Unit,
+    onLoginIdChange: (String) -> Unit,
     onPasswordChange: (String) -> Unit,
     onSignUpClick: () -> Unit,
     onLoginClick: () -> Unit,
-    modifier: Modifier = Modifier) {
+    modifier: Modifier = Modifier
+) {
 
     val context = LocalContext.current
 
@@ -84,8 +83,8 @@ fun LoginScreen(
         )
 
         CustomTextField(
-            value = email,
-            onValueChange = onEmailChange,
+            value = loginid,
+            onValueChange = onLoginIdChange,
             placeholder = "이메일 주소를 입력하세요",
             keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next)
         )
@@ -140,14 +139,16 @@ fun LoginScreen(
 
         WeightSpacer(0.05f)
 
-        val IsEnabled = email.isNotEmpty() && password.isNotEmpty()
+        val IsEnabled = loginid.isNotEmpty() && password.isNotEmpty()
         Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(50.dp)
-                .background(color = if (IsEnabled) LETSSOPTColors.Primary_Red
+                .background(
+                    color = if (IsEnabled) LETSSOPTColors.Primary_Red
                     else LETSSOPTColors.Disabled,
-                    shape = RoundedCornerShape(8.dp))
+                    shape = RoundedCornerShape(8.dp)
+                )
                 .noRippleClickable(
                     enabled = true,
                     onClick = onLoginClick
@@ -173,9 +174,9 @@ fun LoginScreen(
 private fun LoginPreview() {
     LETSSOPTTheme {
         LoginScreen(
-            email = "eunji",
+            loginid = "eunji",
             password = "12345678",
-            onEmailChange = {},
+            onLoginIdChange = {},
             onPasswordChange = {},
             onLoginClick = {},
             onSignUpClick = {}
