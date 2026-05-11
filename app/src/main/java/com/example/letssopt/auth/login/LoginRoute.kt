@@ -19,16 +19,16 @@ fun LoginRoute(
     val uiState by viewModel.uiState.collectAsState()
 
     //Uistate 변화 감지
-    LaunchedEffect(uiState) {
-        when (uiState) {
-            is LoginUiState.Success -> {
+    LaunchedEffect(uiState.status) {
+        when (uiState.status) {
+            is LoginUiStatus.Success -> {
                 Toast.makeText(context, "로그인에 성공했습니다", Toast.LENGTH_SHORT).show()
                 SaveInfo.prefs.setBoolean("Is_Logged_In", true)
                 navigateToHome()
             }
 
-            is LoginUiState.Error -> {
-                val message = (uiState as LoginUiState.Error).message
+            is LoginUiStatus.Error -> {
+                val message = (uiState as LoginUiStatus.Error).message
                 Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
             }
 
@@ -37,8 +37,8 @@ fun LoginRoute(
     }
 
     LoginScreen(
-        loginid = viewModel.loginid,
-        password = viewModel.password,
+        loginid = uiState.loginId,
+        password = uiState.password,
         onLoginIdChange = { viewModel.onLoginIdChange(it) },
         onPasswordChange = { viewModel.onPasswordChange(it) },
         onSignUpClick = { navigateToSignUp() },

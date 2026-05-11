@@ -17,15 +17,15 @@ fun SignUpRoute(
     val uiState by viewModel.uiState.collectAsState()
 
     //Uistate 변화 감지
-    LaunchedEffect(uiState) {
-        when (uiState) {
-            is SignUpUiState.Success -> {
+    LaunchedEffect(uiState.status) {
+        when (uiState.status) {
+            is SignUpUiStatus.Success -> {
                 Toast.makeText(context, "회원가입에 성공했습니다", Toast.LENGTH_SHORT).show()
                 navigateToLogin()
             }
 
-            is SignUpUiState.Error -> {
-                val message = (uiState as SignUpUiState.Error).message
+            is SignUpUiStatus.Error -> {
+                val message = (uiState as SignUpUiStatus.Error).message
                 Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
             }
 
@@ -34,13 +34,13 @@ fun SignUpRoute(
     }
 
     SignUpScreen(
-        loginid = viewModel.loginid,
-        password = viewModel.password,
-        confirmpassword = viewModel.confirmpassword,
-        name = viewModel.name,
-        email = viewModel.email,
-        age = viewModel.age,
-        part = viewModel.part,
+        loginid = uiState.loginId,
+        password = uiState.password,
+        confirmpassword = uiState.confirmpassword,
+        name = uiState.name,
+        email = uiState.email,
+        age = uiState.age,
+        part = uiState.part,
         onLoginIdChange = { viewModel.onLoginIdChange(it) },
         onPasswordChange = { viewModel.onPasswordChange(it) },
         onConfirmPasswordChange = { viewModel.onConfirmPasswordChange(it) },
