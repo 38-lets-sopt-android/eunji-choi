@@ -1,4 +1,4 @@
-package com.example.letssopt.login
+package com.example.letssopt.auth.login
 
 import android.widget.Toast
 import androidx.compose.runtime.Composable

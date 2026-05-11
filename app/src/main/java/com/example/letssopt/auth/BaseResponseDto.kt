@@ -1,31 +1,11 @@
-package com.example.letssopt.signup
+package com.example.letssopt.auth
+
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class SignUpRequestDto(
-    @SerialName("loginId")
-    val loginId: String,
-
-    @SerialName("password")
-    val password: String,
-
-    @SerialName("name")
-    val name: String,
-
-    @SerialName("email")
-    val email: String,
-
-    @SerialName("age")
-    val age: Int,
-
-    @SerialName("part")
-    val part: String
-)
-
-@Serializable
-data class SignUpResponseDto(
+data class BaseResponseDto<T>(
     @SerialName("success")
     val success: Boolean,
 
@@ -37,6 +17,9 @@ data class SignUpResponseDto(
 
     @SerialName("code")
     val code: String,
+
+    @SerialName("data")
+    val data: T? = null,
 
     @SerialName("meta")
     val meta: Metadata? = null

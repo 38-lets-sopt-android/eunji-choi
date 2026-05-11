@@ -18,7 +18,7 @@ import kotlinx.collections.immutable.ImmutableList
 @Composable
 fun CustomTopBar(
     modifier: Modifier = Modifier,
-    icons: ImmutableList<Int>
+    icons: MutableList<Int>
 ) {
     TopAppBar(
         title = {},

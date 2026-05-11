@@ -1,4 +1,4 @@
-package com.example.letssopt.login
+package com.example.letssopt.auth.login
 
 
 import androidx.compose.foundation.background

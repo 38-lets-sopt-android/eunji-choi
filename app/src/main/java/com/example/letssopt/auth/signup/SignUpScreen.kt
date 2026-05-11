@@ -1,4 +1,4 @@
-package com.example.letssopt.signup
+package com.example.letssopt.auth.signup
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box

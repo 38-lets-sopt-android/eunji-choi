@@ -1,4 +1,4 @@
-package com.example.letssopt.signup
+package com.example.letssopt.auth.signup
 
 sealed class SignUpUiState {
     object Idle : SignUpUiState()

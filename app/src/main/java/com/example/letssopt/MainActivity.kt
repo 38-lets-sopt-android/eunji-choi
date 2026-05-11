@@ -26,7 +26,7 @@ import com.example.letssopt.home.screens.PurchaseScreen
 import com.example.letssopt.home.screens.SearchScreen
 import com.example.letssopt.home.screens.StorageScreen
 import com.example.letssopt.home.screens.WebtoonScreen
-import com.example.letssopt.login.LoginRoute
+import com.example.letssopt.auth.login.LoginRoute
 import com.example.letssopt.navigation.Home
 import com.example.letssopt.navigation.HomeGraph
 import com.example.letssopt.navigation.Login
@@ -35,7 +35,7 @@ import com.example.letssopt.navigation.Search
 import com.example.letssopt.navigation.SignUp
 import com.example.letssopt.navigation.Storage
 import com.example.letssopt.navigation.Webtoon
-import com.example.letssopt.signup.SignUpRoute
+import com.example.letssopt.auth.signup.SignUpRoute
 import com.example.letssopt.ui.theme.LETSSOPTTheme
 
 
@@ -45,7 +45,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             LETSSOPTTheme {
-                val startDestination = if (SaveInfo.prefs.getBoolean("Is_Logged_In", false)) HomeGraph else Login
+                val startDestination = if (SaveInfo.prefs.getBoolean("is_logged_in", false)) HomeGraph else Login
 
                 val navController = rememberNavController()
 

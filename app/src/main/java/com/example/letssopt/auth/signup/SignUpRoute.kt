@@ -1,4 +1,4 @@
-package com.example.letssopt.signup
+package com.example.letssopt.auth.signup
 
 import android.widget.Toast
 import androidx.compose.runtime.Composable
