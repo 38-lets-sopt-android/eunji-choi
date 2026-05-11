@@ -9,53 +9,51 @@ import com.example.letssopt.RetrofitClient
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class LoginViewModel : ViewModel() {
-    private val _uiState = MutableStateFlow<LoginUiState>(LoginUiState.Idle)
-    val uiState: StateFlow<LoginUiState> = _uiState.asStateFlow()
+    private val _uiState = MutableStateFlow(LoginUiState())
+    val uiState = _uiState.asStateFlow()
 
 
-    var loginid by mutableStateOf("")
-    var password by mutableStateOf("")
 
     fun onLoginIdChange(value: String) {
-        loginid = value
+        _uiState.update { it.copy(loginId = value) }
     }
 
     fun onPasswordChange(value: String) {
-        password = value
+        _uiState.update { it.copy(password = value) }
     }
 
     // 로그인 조건 체크
-    private fun isValid() = loginid.isNotEmpty() && password.isNotEmpty()
+    private fun isValid() = _uiState.value.loginId.isNotEmpty() && _uiState.value.password.isNotEmpty()
 
     fun login() {
         if (!isValid()) {
-            _uiState.value = LoginUiState.Error("입력값을 확인해주세요")
+            _uiState.update { it.copy(status = LoginUiStatus.Error("입력값을 확인해주세요")) }
             return
         }
         viewModelScope.launch {
-
-            _uiState.value = LoginUiState.Loading
+            _uiState.update { it.copy(status = LoginUiStatus.Loading) }
 
             runCatching {
                 RetrofitClient.apiService.logIn(
                     LoginRequestDto(
-                        loginId = loginid,
-                        password = password
+                        loginId = _uiState.value.loginId,
+                        password = _uiState.value.password
                     )
                 )
             }.onSuccess { response ->
                 if (response.isSuccessful) {
                     val userId = response.body()?.data?.userId
-                    _uiState.value = LoginUiState.Success(userId = userId ?: 0)
+                    _uiState.update { it.copy(status = LoginUiStatus.Success(userId = userId ?: 0)) }
                 } else {
                     val message = response.body()?.message ?: "회원가입에 실패했습니다"
-                    _uiState.value = LoginUiState.Error(message)
+                    _uiState.update { it.copy(status = LoginUiStatus.Error(message)) }
                 }
             }.onFailure { e ->
-                _uiState.value = LoginUiState.Error(e.message ?: "네트워크 오류가 발생했습니다")
+                _uiState.update { it.copy(status = LoginUiStatus.Error(e.message ?: "네트워크 오류가 발생했습니다")) }
             }
         }
     }
