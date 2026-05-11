@@ -3,7 +3,6 @@ package com.example.letssopt
 import com.example.letssopt.auth.BaseResponseDto
 import com.example.letssopt.auth.login.LoginRequestDto
 import com.example.letssopt.auth.signup.SignUpRequestDto
-import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.POST
 
