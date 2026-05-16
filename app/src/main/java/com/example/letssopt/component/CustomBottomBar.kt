@@ -12,26 +12,17 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavController
-import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.example.letssopt.navigation.Home
-import com.example.letssopt.navigation.Purchase
-import com.example.letssopt.navigation.Search
-import com.example.letssopt.navigation.Storage
-import com.example.letssopt.navigation.Webtoon
-import com.example.letssopt.home.HomeViewModel
 import com.example.letssopt.ui.theme.LETSSOPTColors
 
 @Composable
-fun CustomBottomBar (
+fun CustomBottomBar(
     tabs: List<BottomIcons>,
     currentTab: BottomIcons?,
     onTabSelected: (BottomIcons) -> Unit,
     modifier: Modifier = Modifier
-    ){
-    NavigationBar (
+) {
+    NavigationBar(
         modifier = modifier,
         containerColor = LETSSOPTColors.BackGround
     ) {

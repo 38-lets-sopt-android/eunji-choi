@@ -1,13 +1,16 @@
 package com.example.letssopt.home.sections
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.gestures.snapping.rememberSnapFlingBehavior
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -25,6 +28,13 @@ fun NewSection(
     contents: List<Int>,
     modifier: Modifier = Modifier
 ) {
+    if (contents.isEmpty()) return
+    val infiniteCount = Int.MAX_VALUE
+    val contentsSize = contents.size
+    val startIndex = infiniteCount / 2 / contentsSize * contentsSize
+    val state = rememberLazyListState(initialFirstVisibleItemIndex = startIndex)
+    val snap = rememberSnapFlingBehavior(lazyListState = state)
+
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -42,10 +52,15 @@ fun NewSection(
         )
 
 
-        LazyRow {
-            items(contents) { item ->
+        LazyRow(
+            state = state,
+            flingBehavior = snap,
+            contentPadding = PaddingValues(horizontal = 8.dp),
+            horizontalArrangement = Arrangement.spacedBy(16.dp)
+        ){
+            items(infiniteCount) { index ->
                 Image(
-                    painter = painterResource(id = item),
+                    painter = painterResource(id = contents[index % contentsSize]),
                     contentDescription = null,
                     contentScale = ContentScale.Crop,
                     modifier = Modifier

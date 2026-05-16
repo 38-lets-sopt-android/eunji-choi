@@ -5,7 +5,7 @@ import android.content.SharedPreferences
 
 class PreferenceUtil(context: Context) {
     private val prefs: SharedPreferences =
-        context.getSharedPreferences("login_info", Context.MODE_PRIVATE)
+        context.getSharedPreferences("is_logged_in", Context.MODE_PRIVATE)
 
     fun getBoolean(key: String, defValue: Boolean): Boolean {
         return prefs.getBoolean(key, defValue)
@@ -14,13 +14,4 @@ class PreferenceUtil(context: Context) {
     fun setBoolean(key: String, value: Boolean) {
         prefs.edit().putBoolean(key, value).apply()
     }
-
-    fun getString(key: String, defValue: String = ""): String {
-        return prefs.getString(key, defValue) ?: defValue
-    }
-
-    fun setString(key: String, value: String) {
-        prefs.edit().putString(key, value).apply()
-    }
-
 }

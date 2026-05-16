@@ -2,11 +2,6 @@ package com.example.letssopt.home
 
 import androidx.lifecycle.ViewModel
 import com.example.letssopt.R
-import com.example.letssopt.navigation.Home
-import com.example.letssopt.navigation.Purchase
-import com.example.letssopt.navigation.Search
-import com.example.letssopt.navigation.Storage
-import com.example.letssopt.navigation.Webtoon
 
 class HomeViewModel : ViewModel() {
 
@@ -47,14 +42,9 @@ class HomeViewModel : ViewModel() {
 
     fun getpartyList() = partyList
 
-    val topIcons = listOf(
+    val topIcons = mutableListOf(
         R.drawable.ic_top_bar_video,
         R.drawable.ic_top_bar_bell,
         R.drawable.ic_top_bar_profile,
-        )
-
-
-
-
-//    fun getbottomIcons() = bottomIcons
+    )
 }

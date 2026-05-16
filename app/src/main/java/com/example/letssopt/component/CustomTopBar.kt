@@ -11,19 +11,18 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.letssopt.home.HomeViewModel
 import com.example.letssopt.ui.theme.LETSSOPTColors
+import kotlinx.collections.immutable.ImmutableList
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CustomTopBar(
     modifier: Modifier = Modifier,
-    icons : List<Int>
+    icons: MutableList<Int>
 ) {
     TopAppBar(
-        modifier = modifier,
         title = {},
+        modifier = modifier,
         colors = TopAppBarDefaults.topAppBarColors(
             containerColor = LETSSOPTColors.BackGround
         ),
